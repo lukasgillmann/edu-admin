@@ -10,7 +10,7 @@ const App = () => {
 
   useEffect(() => {
     actionAdminDashboardGet(dispatch);
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="App">
