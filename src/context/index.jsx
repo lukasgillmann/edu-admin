@@ -1,34 +1,58 @@
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useEffect, useReducer, useState } from "react";
 
 const AsterContext = createContext();
 AsterContext.displayName = "AsterContext";
 
 const reducer = (state, action) => {
-    switch (action.type) {
-        case "ADMIN_DASHBOARD_GET_LOADED":
-            return { ...state, loadedDashboardGet: action.value };
-        default:
-            throw new Error(`Unhandled action type: ${action.type}`);
+  switch (action.type) {
+    case "SET_MINI_SIDENAV": {
+      return { ...state, miniSidenav: action.value };
     }
+    case "ADMIN_DASHBOARD_GET_LOADED":
+      return { ...state, loadedDashboardGet: action.value };
+    default:
+      throw new Error(`Unhandled action type: ${action.type}`);
+  }
 };
 
 const AsterControllerProvider = ({ children }) => {
-    const initialState = {
-        loadedDashboardGet: false,
-    };
+  const initialState = {
+    miniSidenav: false,
+    loadedDashboardGet: false,
+  };
 
-    const [controller, dispatch] = useReducer(reducer, initialState);
-    return <AsterContext.Provider value={[controller, dispatch]}>{children}</AsterContext.Provider>;
+  const [controller, dispatch] = useReducer(reducer, initialState);
+  return <AsterContext.Provider value={[controller, dispatch]}>{children}</AsterContext.Provider>;
 };
 
 const useAsterController = () => {
-    const context = useContext(AsterContext);
+  const context = useContext(AsterContext);
 
-    if (!context) {
-        throw new Error('[useAsterController should be used inside the AsterControllerProvider.]');
-    }
+  if (!context) {
+    throw new Error('[useAsterController should be used inside the AsterControllerProvider.]');
+  }
 
-    return context;
+  return context;
 };
 
-export { AsterControllerProvider, useAsterController };
+const useWindowSize = () => {
+  const [windowSize, setWindowSize] = useState({
+    width: undefined,
+    height: undefined,
+  });
+  useEffect(() => {
+    function handleResize() {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    }
+    // Add event listener
+    window.addEventListener("resize", handleResize);
+    handleResize();
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+  return windowSize;
+};
+
+export { AsterControllerProvider, useAsterController, useWindowSize };
