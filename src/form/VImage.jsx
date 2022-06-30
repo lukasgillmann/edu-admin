@@ -3,7 +3,7 @@ import React from "react";
 const VImage = (props) => {
 
   const {
-    classes,
+    className,
     src,
     error,
     width,
@@ -12,7 +12,7 @@ const VImage = (props) => {
 
   return <>
     <img
-      className={classes}
+      className={className}
       src={src}
       alt=''
       width={width}
@@ -27,7 +27,7 @@ const VImage = (props) => {
 };
 
 VImage.defaultProps = {
-  classes: '',
+  className: '',
   src: "",
   error: '', // user | course
   width: '0px',

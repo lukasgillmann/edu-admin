@@ -13,6 +13,14 @@ export default createTheme({
       light: '#F0F2F5',
       dark: '#020202'
     },
+    white: {
+      main: "#ffffff",
+      focus: "#ffffff",
+    },
+    dark: {
+      main: "#344767",
+      focus: "#2c3c58",
+    },
     gradients: {
       primary: {
         main: "#EC407A",

@@ -8,8 +8,12 @@ const MainLayout = (props) => {
 
   return <>
     <Card className="shadow rounded-xl h-full">
-        <Header />
-        {children}
+      <Header />
+      <Box className="p-8">
+        <Box className="relative">
+          {children}
+        </Box>
+      </Box>
     </Card>
   </>;
 };

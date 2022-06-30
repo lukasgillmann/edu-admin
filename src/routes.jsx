@@ -39,7 +39,7 @@ const routes = [
         route: '/comment',
         text: 'Comment'
       }, {
-        route: 'review',
+        route: '/review',
         text: 'Review'
       }
     ]

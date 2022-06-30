@@ -163,7 +163,7 @@ const SquareSwitch = styled(Switch)(({ theme }) => ({
 
 const VSwitch = (props) => {
 
-  const { checked, setChecked, children, color, type, classes } = props;
+  const { checked, setChecked, children, color, type, className } = props;
 
   const handleCheck = (e) => {
     // e.preventDefault();
@@ -183,7 +183,7 @@ const VSwitch = (props) => {
             color={color}
           />
         }
-        className={classes}
+        className={className}
         label={children}
       />
     }
@@ -198,7 +198,7 @@ const VSwitch = (props) => {
             color={color}
           />
         }
-        className={classes}
+        className={className}
         label={children}
       />
     }
@@ -213,7 +213,7 @@ const VSwitch = (props) => {
             color={color}
           />
         }
-        className={classes}
+        className={className}
         label={children}
       />
     }
@@ -231,7 +231,7 @@ const VSwitch = (props) => {
             color={color}
           />
         }
-        className={classes}
+        className={className}
         label={children}
       />
     }

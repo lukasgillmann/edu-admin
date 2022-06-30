@@ -1,10 +1,11 @@
 import { Box, Icon, Menu, MenuItem } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useAsterController, useWindowSize } from "../context";
-import { actionMiniSidenav } from "../context/action";
+import { actionDarkMode, actionMiniSidenav } from "../context/action";
 import VAvatar from "../form/VAvatar";
 import VButton from "../form/VButton";
 import VSwitch from "../form/VSwitch";
+import VText from "../form/VText";
 
 const paperProp = {
   elevation: 0,
@@ -30,7 +31,7 @@ const paperProp = {
 const Header = () => {
 
   const [controller, dispatch] = useAsterController();
-  const { miniSidenav } = controller;
+  const { miniSidenav, darkMode } = controller;
   const windowSize = useWindowSize();
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -41,7 +42,7 @@ const Header = () => {
     if (windowSize.width < 992 && !miniSidenav) {
       actionMiniSidenav(dispatch, true);
     }
-  }, [windowSize.width]);
+  }, [windowSize.width, dispatch, miniSidenav]);
 
   const onMenuClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -65,8 +66,12 @@ const Header = () => {
     actionMiniSidenav(dispatch, !miniSidenav);
   };
 
+  const onDarkModeClick = () => {
+    actionDarkMode(dispatch, !darkMode);
+  };
+
   return <>
-    <Box className="flex items-center px-6 py-2 border-solid border-0 border-b border-gray-300">
+    <Box className="flex items-center px-8 py-2 border-solid border-0 border-b border-gray-300">
       <VSwitch
         checked={!miniSidenav}
         setChecked={onMiniSidenavClick}
@@ -76,10 +81,16 @@ const Header = () => {
       />
       <Box className="w-px h-7 bg-gray-300 mx-4" />
       <Box className="hidden sm:block mr-2">
-        <Box className="text-2xl font-bold text-limit-1">Welcome, Theresha</Box>
-        <Box className="text-sm text-gray-400 text-limit-1">Here's what happened with your learning system</Box>
+        <VText className="text-2xl font-bold text-limit-1">Welcome, Theresha</VText>
+        <VText className="text-sm text-limit-1">Here's what happened with your learning system</VText>
       </Box>
       <Box className="ml-auto flex items-center ">
+        <VSwitch
+          checked={!darkMode}
+          setChecked={onDarkModeClick}
+          color="info"
+          type="MUI"
+        />
         <VButton
           startIcon="add"
           iconButton
@@ -109,8 +120,8 @@ const Header = () => {
         <Box className="flex items-center cursor-pointer" onClick={onMenuClick}>
           <VAvatar size='sm' shadow='sm' />
           <Box className="ml-2 hidden lg:block">
-            <Box className="text-lg font-bold leading-5 text-limit-1">Theresha</Box>
-            <Box className="text-sm text-gray-400 leading-4 text-limit-1">Super Admin</Box>
+            <VText className="text-lg font-bold leading-5 text-limit-1">Theresha</VText>
+            <VText className="text-sm text-gray-400 leading-4 text-limit-1">Super Admin</VText>
           </Box>
           <Icon className="text-gray-400 ml-2">expand_more</Icon>
         </Box>

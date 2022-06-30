@@ -11,9 +11,9 @@ const VAvatarRoot = styled(Avatar)(({ theme, ownerState }) => {
   const { palette, functions, typography, boxShadows } = theme;
   const { shadow, bgColor, size } = ownerState;
 
-  const { gradients, white } = palette;
+  const { gradients } = palette;
   const { pxToRem, linearGradient } = functions;
-  const { size: fontSize, fontWeightRegular } = typography;
+  const { fontWeightRegular } = typography;
 
   // backgroundImage value
   const backgroundValue =

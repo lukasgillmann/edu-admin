@@ -8,6 +8,9 @@ const reducer = (state, action) => {
     case "SET_MINI_SIDENAV": {
       return { ...state, miniSidenav: action.value };
     }
+    case "SET_DARK_MODE": {
+      return { ...state, darkMode: action.value };
+    }
     case "ADMIN_DASHBOARD_GET_LOADED":
       return { ...state, loadedDashboardGet: action.value };
     default:
@@ -18,6 +21,7 @@ const reducer = (state, action) => {
 const AsterControllerProvider = ({ children }) => {
   const initialState = {
     miniSidenav: false,
+    darkMode: false,
     loadedDashboardGet: false,
   };
 
