@@ -21,6 +21,11 @@ export default createTheme({
       main: "#344767",
       focus: "#2c3c58",
     },
+    primary: {
+      main: "#43B8B1",
+      state: "#D81B60",
+      contrastText: "#FFFFFF"
+    },
     gradients: {
       primary: {
         main: "#EC407A",

@@ -1,6 +1,9 @@
 import React from "react";
-import { Grid } from '@mui/material';
+import { Grid, Box } from '@mui/material';
 import BAnaCard from '../../components/BAnaCard';
+import BTotalContent from '../../components/BTotalContent';
+import BRecentActivity from '../../components/BRecentActivity';
+import GDashboard from '../../graphs/GDashboard';
 
 const Dashboard = () => {
 
@@ -12,10 +15,13 @@ const Dashboard = () => {
         <BAnaCard icon="person_add_alt" label="Avg. Access Time" value="56 Minutes" className="mt-6" />
       </Grid>
       <Grid item md={4}>
-        BBB
+        <BTotalContent />
       </Grid>
       <Grid item md={4}>
-        CCC
+        <BRecentActivity />
+      </Grid>
+      <Grid item md={12}>
+        <GDashboard />
       </Grid>
     </Grid>
   </>;

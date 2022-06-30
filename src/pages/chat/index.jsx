@@ -1,9 +1,10 @@
 import React from "react";
+import VText from "../../form/VText";
 
 const Chat = () => {
 
     return <>
-        <h1>This is Chat page</h1>
+        <VText className="text-3xl">This is Chat page</VText>
     </>;
 };
 

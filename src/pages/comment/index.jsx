@@ -1,9 +1,10 @@
 import React from "react";
+import VText from "../../form/VText";
 
 const Comment = () => {
 
     return <>
-        <h1>This is Comment page</h1>
+        <VText className="text-3xl">This is Comment page</VText>
     </>;
 };
 

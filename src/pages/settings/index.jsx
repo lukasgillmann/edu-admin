@@ -1,9 +1,10 @@
 import React from "react";
+import VText from "../../form/VText";
 
 const Settings = () => {
 
     return <>
-        <h1>This is Settings page</h1>
+        <VText className="text-3xl">This is Settings page</VText>
     </>;
 };
 

@@ -1,9 +1,10 @@
 import React from "react";
+import VText from "../../form/VText";
 
 const Coach = () => {
 
     return <>
-        <h1>This is Coach page</h1>
+        <VText className="text-3xl">This is Coach page</VText>
     </>;
 };
 

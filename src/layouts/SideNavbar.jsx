@@ -1,5 +1,5 @@
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
-import { Collapse, Icon, List, ListItemButton, ListItemIcon, ListItemText, Box, styled } from "@mui/material";
+import { Collapse, Icon, List, ListItemButton, ListItemIcon, ListItemText, Box, styled, Divider } from "@mui/material";
 import React, { Fragment, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -141,7 +141,7 @@ const SideNavbar = () => {
                       </Collapse>
                     </>
                   }
-                  {v.divider && <div className="h-px w-full my-2 bg-gray-200" />}
+                  {v.divider && <Divider />}
 
                 </Fragment>
               )
@@ -149,20 +149,20 @@ const SideNavbar = () => {
           </List>
 
           <List component="nav" aria-labelledby="nested-lsit-subheader">
-            <div className="h-px w-full my-2 bg-gray-200" />
+            <Divider />
             <ListItemButton onClick={() => onClick("/help")} className={`${location.pathname.includes("/help") ? "bg-red-100" : ""} rounded-xl mt-2`}>
               <ListItemIcon><Icon sx={{ color: '#9CA0A0' }}>help_outline</Icon></ListItemIcon>
-              <ListItemText primary='Help' />
+              <ListItemText><VText>Help</VText></ListItemText>
             </ListItemButton>
             <ListItemButton onClick={() => onClick("/settings")} className={`${location.pathname.includes("/settings") ? "bg-red-100" : ""} rounded-xl mt-2`}>
               <ListItemIcon><Icon sx={{ color: '#9CA0A0' }}>settings</Icon></ListItemIcon>
-              <ListItemText primary='Settings' />
+              <ListItemText><VText>Settings</VText></ListItemText>
             </ListItemButton>
             <Box className="px-2 my-4" sx={{ visibility: miniSidenav ? 'hidden' : 'visible' }}>
-              <Box size={24} className="text-gray-500">Powered by</Box>
+              <VText className="text-gray-500 text-xl">Powered by</VText>
               <Box className="flex items-center">
                 <VImage src="https://edu-file-uploads.s3.amazonaws.com/dev/favicon/logo.png" className="w-8 h-8" />
-                <Box size={30} inline className="ml-2 font-bold">Univo</Box>
+                <VText inline className="ml-2 font-bold text-3xl">Univo</VText>
               </Box>
             </Box>
           </List>

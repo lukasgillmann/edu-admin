@@ -1,9 +1,10 @@
 import React from "react";
+import VText from "../../form/VText";
 
 const Category = () => {
 
     return <>
-        <h1>This is Category page</h1>
+        <VText className="text-3xl">This is Category page</VText>
     </>;
 };
 

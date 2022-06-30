@@ -3,12 +3,12 @@ import React from "react";
 
 const VSelect = (props) => {
 
-  const { option, setOption, label, classes, items, variant } = props;
+  const { option, setOption, label, items, variant, ...rest } = props;
 
   return <>
     {
       items.length > 0 &&
-      <FormControl className={classes} variant={variant}>
+      <FormControl variant={variant} {...rest}>
         <InputLabel id="demo-simple-select-label">{label}</InputLabel>
         <Select
           labelId="demo-simple-select-label"
@@ -28,7 +28,6 @@ const VSelect = (props) => {
 };
 
 VSelect.defaultProps = {
-  classes: '',
   option: '',
   setOption: () => { },
   items: [],

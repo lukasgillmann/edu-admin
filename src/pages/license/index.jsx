@@ -1,9 +1,10 @@
 import React from "react";
+import VText from "../../form/VText";
 
 const License = () => {
 
     return <>
-        <h1>This is License page</h1>
+        <VText className="text-3xl">This is License page</VText>
     </>;
 };
 

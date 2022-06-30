@@ -1,9 +1,10 @@
 import React from "react";
+import VText from "../../form/VText";
 
 const Group = () => {
 
     return <>
-        <h1>This is Group page</h1>
+        <VText className="text-3xl">This is Group page</VText>
     </>;
 };
 

@@ -1,9 +1,10 @@
 import React from "react";
+import VText from "../../form/VText";
 
 const Virtual = () => {
 
     return <>
-        <h1>This is Virtual page</h1>
+        <VText className="text-3xl">This is Virtual page</VText>
     </>;
 };
 

@@ -1,9 +1,10 @@
 import React from "react";
+import VText from "../../form/VText";
 
 const Theme = () => {
 
     return <>
-        <h1>This is Theme page</h1>
+        <VText className="text-3xl">This is Theme page</VText>
     </>;
 };
 

@@ -1,9 +1,10 @@
 import React from "react";
+import VText from "../../form/VText";
 
 const SmsNotify = () => {
 
     return <>
-        <h1>This is SmsNotify page</h1>
+        <VText className="text-3xl">This is SmsNotify page</VText>
     </>;
 };
 

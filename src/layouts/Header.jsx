@@ -54,6 +54,11 @@ const Header = () => {
     setMenuItems(['Alert 1', 'Alert 2', 'Alert 3']);
   };
 
+  const onAddClick = e => {
+    setAnchorEl(e.currentTarget);
+    setMenuItems(['Add 1', 'Add 2', 'Add 3']);
+  }
+
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -95,8 +100,8 @@ const Header = () => {
           startIcon="add"
           iconButton
           variant="contained"
-          color="secondary"
-          onClick={onClick}
+          color="primary"
+          onClick={onAddClick}
         />
         <VButton
           startIcon="notifications_none"

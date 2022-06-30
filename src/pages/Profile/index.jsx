@@ -1,9 +1,10 @@
 import React from "react";
+import VText from "../../form/VText";
 
 const Profile = () => {
 
     return <>
-        <h1>This is Profile page</h1>
+        <VText className="text-3xl">This is Profile page</VText>
     </>;
 };
 

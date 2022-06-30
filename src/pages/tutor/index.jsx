@@ -1,9 +1,10 @@
 import React from "react";
+import VText from "../../form/VText";
 
 const Tutor = () => {
 
     return <>
-        <h1>This is Tutor page</h1>
+        <VText className="text-3xl">This is Tutor page</VText>
     </>;
 };
 
