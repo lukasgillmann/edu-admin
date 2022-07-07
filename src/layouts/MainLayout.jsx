@@ -7,9 +7,9 @@ const MainLayout = (props) => {
   const { children } = props;
 
   return <>
-    <Card className="shadow rounded-xl h-full overflow-auto">
+    <Card className="shadow rounded-xl h-full flex flex-col">
       <Header />
-      <Box className="p-8">
+      <Box className="p-8 overflow-auto flex-1 v-light-scrollbar">
         <Box className="relative">
           {children}
         </Box>

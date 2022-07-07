@@ -71,7 +71,7 @@ const SideNavbar = () => {
   const navigate = useNavigate();
   const [openRoutes, setOpenRoutes] = useState([]);
 
-  const logoClass = useMemo(() => darkMode ? 'bg-indigo-900' : 'bg-red-100', [darkMode]);
+  const logoClass = useMemo(() => darkMode ? 'bg-indigo-900' : 'bg-white', [darkMode]);
   const activeClassItem = useMemo(() => darkMode ? 'bg-indigo-900' : 'bg-red-100', [darkMode]);
   const activeClassSubItem = useMemo(() => darkMode ? 'bg-indigo-700' : 'bg-red-100', [darkMode]);
 
@@ -162,7 +162,7 @@ const SideNavbar = () => {
               <VText className="text-gray-500 text-xl">Powered by</VText>
               <Box className="flex items-center">
                 <VImage src="https://edu-file-uploads.s3.amazonaws.com/dev/favicon/logo.png" className="w-8 h-8" />
-                <VText inline className="ml-2 font-bold text-3xl">Univo</VText>
+                <VText className="ml-2 font-bold text-3xl">Univo</VText>
               </Box>
             </Box>
           </List>

@@ -10,6 +10,7 @@ export default createTheme({
   },
   palette: {
     background: {
+      default: "#F8F8F8",
       light: '#F0F2F5',
       dark: '#020202'
     },
