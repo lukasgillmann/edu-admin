@@ -85,7 +85,7 @@ const SideNavbar = () => {
         setOpenRoutes([...openRoutes, route]);
       }
     } else {
-      navigate(`${route}${subRoute}`);
+      navigate(`/${route}/${subRoute}`);
     }
   };
 
@@ -141,7 +141,7 @@ const SideNavbar = () => {
                       </Collapse>
                     </>
                   }
-                  {v.divider && <Divider />}
+                  {v.divider && <Divider className="mt-2" />}
 
                 </Fragment>
               )

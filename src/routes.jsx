@@ -1,80 +1,80 @@
 const routes = [
-  { route: '/dashboard', icon: 'dashboard_outlined', text: 'Dashboard' },
-  { route: '/inbox', icon: 'chat', text: 'Inbox', divider: true },
+  { route: 'dashboard', icon: 'dashboard_outlined', text: 'Dashboard' },
+  { route: 'inbox', icon: 'chat', text: 'Inbox', divider: true },
   {
-    route: '/user',
+    route: 'user',
     icon: 'person_outline',
     text: 'User',
     children: [
       {
-        route: '/user',
+        route: 'user',
         text: 'All User'
       }, {
-        route: '/group',
+        route: 'group',
         text: 'Group'
       }, {
-        route: '/tutor',
+        route: 'tutor',
         text: 'Tutor'
       }, {
-        route: '/coach',
+        route: 'coach',
         text: 'Coach'
       }
     ]
   },
   {
-    route: '/catalog',
+    route: 'catalog',
     icon: 'event_note',
     text: 'Catalog',
     children: [
       {
-        route: '/course',
+        route: 'course',
         text: 'Course'
       }, {
-        route: '/category',
+        route: 'category',
         text: 'Category'
       }, {
-        route: '/virtual',
+        route: 'virtual',
         text: 'Virtual Class'
       }, {
-        route: '/comment',
+        route: 'comment',
         text: 'Comment'
       }, {
-        route: '/review',
+        route: 'review',
         text: 'Review'
       }
     ]
   },
   {
-    route: '/notifications',
+    route: 'notifications',
     icon: 'mail_outline',
     text: 'Notifications',
     children: [
       {
-        route: '/email',
+        route: 'email',
         text: 'Email'
       }, {
-        route: '/sms',
+        route: 'sms',
         text: 'SMS'
       }
     ]
   },
   {
-    route: '/tracking',
+    route: 'tracking',
     icon: 'bar_chart',
     text: 'Tracking'
   },
   {
-    route: '/certificate',
+    route: 'certificate',
     icon: 'school',
     text: 'Certificate'
   },
   {
-    route: '/licenses',
+    route: 'licenses',
     icon: 'key',
     text: 'Licenses'
   },
   {
-    route: '/public_site',
+    route: 'public_site',
     icon: 'web_asset',
     text: 'Public Site'
   },

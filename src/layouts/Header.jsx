@@ -1,11 +1,14 @@
 import { Box, Icon, Menu, MenuItem } from "@mui/material";
+import { useMemo } from "react";
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { useAsterController, useWindowSize } from "../context";
 import { actionDarkMode, actionMiniSidenav } from "../context/action";
 import VAvatar from "../form/VAvatar";
 import VButton from "../form/VButton";
 import VSwitch from "../form/VSwitch";
 import VText from "../form/VText";
+import routes from "../routes";
 import HeaderAdd from "./header.content/HeaderAdd";
 import HeaderAlert from "./header.content/HeaderAlert";
 import HeaderMenu from "./header.content/HeaderMenu";
@@ -37,6 +40,7 @@ const Header = () => {
   const [controller, dispatch] = useAsterController();
   const { miniSidenav, darkMode } = controller;
   const windowSize = useWindowSize();
+  const location = useLocation();
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [elemName, setElemName] = useState('');
@@ -56,6 +60,25 @@ const Header = () => {
   const onMiniSidenavClick = () => actionMiniSidenav(dispatch, !miniSidenav);
   const onDarkModeClick = () => actionDarkMode(dispatch, !darkMode);
 
+  const headerTextDom = useMemo(() => {
+
+    const splits = location.pathname.split('/').filter(v => v);
+    if (!splits.length) return <></>;
+    if (splits[0] === 'dashboard') return <>
+      <VText className="text-2xl font-bold text-limit-1 leading-6">Welcome, Theresha</VText>
+      <VText className="text-sm text-limit-1">Here's what happened with your learning system</VText>
+    </>;
+
+    let item = routes;
+    let text = '';
+    for (let splitItem of splits) {
+      item = item.find(v => v.route === splitItem) || {};
+      text = item.text;
+      item = item.children || [];
+    }
+    return <VText className="text-2xl font-bold text-limit-1">{text}</VText>;
+  }, [location.pathname]);
+
   return <>
     <Box className="flex items-center px-8 py-2 border-solid border-0 border-b border-gray-300">
       <VSwitch
@@ -67,8 +90,7 @@ const Header = () => {
       />
       <Box className="w-px h-7 bg-gray-300 mx-4" />
       <Box className="hidden sm:block mr-2">
-        <VText className="text-2xl font-bold text-limit-1">Welcome, Theresha</VText>
-        <VText className="text-sm text-limit-1">Here's what happened with your learning system</VText>
+        {headerTextDom}
       </Box>
       <Box className="ml-auto flex items-center ">
         <VSwitch
@@ -124,11 +146,6 @@ const Header = () => {
           transformOrigin={{ horizontal: 'right', vertical: 'top' }}
           anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
         >
-          {
-            // menuItems.map(v =>
-            //   <MenuItem key={v} onClick={handleClose}>{v}</MenuItem>
-            // )
-          }
           {elemName === 'add' && <HeaderAdd />}
           {elemName === 'notification' && <HeaderAlert />}
           {elemName === 'search' && <HeaderSearch />}

@@ -56,7 +56,7 @@ const VButton = (props) => {
         onClick={onClick}
         disabled={disabled}
         loading={loading}
-        loadingPosition="start"
+        loadingPosition={startIcon ? "start" : undefined}
         {...rest}
       >
         {children}
