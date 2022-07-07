@@ -1,3 +1,4 @@
+git switch dev
 git add .
 git commit -m -
-git push
+git push origin dev
