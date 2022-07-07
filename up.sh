@@ -1,4 +1,5 @@
 git switch dev
 git add .
-git commit -m -
+comment=${1:--}
+git commit -m "$comment"
 git push origin dev

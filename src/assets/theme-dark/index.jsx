@@ -12,7 +12,8 @@ export default createTheme({
   },
   palette: {...colors},
   functions: {
-    pxToRem: (number, baseNumber = 16) => `${number / baseNumber}rem`
+    pxToRem: (number, baseNumber = 16) => `${number / baseNumber}rem`,
+    linearGradient: (color, colorState, angle = 195) => `linear-gradient(${angle}deg, ${color}, ${colorState})`
   },
   components: {
     MuiCard: {...card}

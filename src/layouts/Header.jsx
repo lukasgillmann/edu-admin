@@ -6,6 +6,10 @@ import VAvatar from "../form/VAvatar";
 import VButton from "../form/VButton";
 import VSwitch from "../form/VSwitch";
 import VText from "../form/VText";
+import HeaderAdd from "./header.content/HeaderAdd";
+import HeaderAlert from "./header.content/HeaderAlert";
+import HeaderMenu from "./header.content/HeaderMenu";
+import HeaderSearch from "./header.content/HeaderSearch";
 
 const paperProp = {
   elevation: 0,
@@ -35,8 +39,7 @@ const Header = () => {
   const windowSize = useWindowSize();
 
   const [anchorEl, setAnchorEl] = useState(null);
-  const [menuItems, setMenuItems] = useState([]);
-  const open = Boolean(anchorEl);
+  const [elemName, setElemName] = useState('');
 
   useEffect(() => {
     if (windowSize.width < 992 && !miniSidenav) {
@@ -44,36 +47,14 @@ const Header = () => {
     }
   }, [windowSize.width, dispatch, miniSidenav]);
 
-  const onMenuClick = (event) => {
-    setAnchorEl(event.currentTarget);
-    setMenuItems(['Profile', 'My account', 'Logout']);
-  };
-
-  const onAlertClick = (event) => {
-    setAnchorEl(event.currentTarget);
-    setMenuItems(['Alert 1', 'Alert 2', 'Alert 3']);
-  };
-
-  const onAddClick = e => {
+  const onClick = (e) => {
     setAnchorEl(e.currentTarget);
-    setMenuItems(['Add 1', 'Add 2', 'Add 3']);
-  }
-
-  const handleClose = () => {
-    setAnchorEl(null);
+    setElemName(e.currentTarget.name);
   };
 
-  const onClick = () => {
-
-  };
-
-  const onMiniSidenavClick = () => {
-    actionMiniSidenav(dispatch, !miniSidenav);
-  };
-
-  const onDarkModeClick = () => {
-    actionDarkMode(dispatch, !darkMode);
-  };
+  const handleClose = () => setAnchorEl(null);
+  const onMiniSidenavClick = () => actionMiniSidenav(dispatch, !miniSidenav);
+  const onDarkModeClick = () => actionDarkMode(dispatch, !darkMode);
 
   return <>
     <Box className="flex items-center px-8 py-2 border-solid border-0 border-b border-gray-300">
@@ -101,15 +82,16 @@ const Header = () => {
           iconButton
           variant="contained"
           color="primary"
-          onClick={onAddClick}
+          onClick={onClick}
+          name="add"
         />
         <VButton
           startIcon="notifications_none"
           iconButton
           variant="outlined"
           color="secondary"
-          onClick={onAlertClick}
-          classes="ml-2"
+          onClick={onClick}
+          className="ml-2"
           name="notification"
         />
         <VButton
@@ -118,23 +100,24 @@ const Header = () => {
           variant="outlined"
           color="secondary"
           onClick={onClick}
-          classes="ml-2"
+          className="ml-2"
+          name="search"
         />
-        <Box className="w-px h-7 bg-gray-300 mx-4" />
+        <Box className="w-px h-7 bg-gray-300 ml-4 mr-2" />
 
-        <Box className="flex items-center cursor-pointer" onClick={onMenuClick}>
-          <VAvatar size='sm' shadow='sm' />
+        <VButton variant="text" className="flex items-center" onClick={onClick} name="menu">
+          <VAvatar size='sm' bgColor="light" />
           <Box className="ml-2 hidden lg:block">
             <VText className="text-lg font-bold leading-5 text-limit-1">Theresha</VText>
             <VText className="text-sm text-gray-400 leading-4 text-limit-1">Super Admin</VText>
           </Box>
           <Icon className="text-gray-400 ml-2">expand_more</Icon>
-        </Box>
+        </VButton>
 
         <Menu
           id="basic-menu"
           anchorEl={anchorEl}
-          open={open}
+          open={Boolean(anchorEl)}
           onClose={handleClose}
           MenuListProps={{ 'aria-labelledby': 'basic-button' }}
           PaperProps={paperProp}
@@ -142,10 +125,14 @@ const Header = () => {
           anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
         >
           {
-            menuItems.map(v =>
-              <MenuItem key={v} onClick={handleClose}>{v}</MenuItem>
-            )
+            // menuItems.map(v =>
+            //   <MenuItem key={v} onClick={handleClose}>{v}</MenuItem>
+            // )
           }
+          {elemName === 'add' && <HeaderAdd />}
+          {elemName === 'notification' && <HeaderAlert />}
+          {elemName === 'search' && <HeaderSearch />}
+          {elemName === 'menu' && <HeaderMenu />}
         </Menu>
 
       </Box>

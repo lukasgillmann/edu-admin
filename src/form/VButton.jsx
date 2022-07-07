@@ -5,7 +5,7 @@ import React from "react";
 const VButton = (props) => {
 
   const {
-    classes,
+    className,
     startIcon,
     endIcon,
     children,
@@ -23,7 +23,7 @@ const VButton = (props) => {
     {
       iconButton && <LoadingButton
         variant={variant}
-        className={`${classes} p-2 min-w-0 rounded-lg`}
+        className={`${className} p-2 min-w-0 rounded-lg`}
         color={color}
         onClick={onClick}
         disabled={disabled}
@@ -37,7 +37,7 @@ const VButton = (props) => {
     {
       iconOnly && <IconButton
         variant={variant}
-        className={`${classes} p-2 min-w-0`}
+        className={`${className} p-2 min-w-0`}
         color={color}
         onClick={onClick}
         disabled={disabled}
@@ -49,7 +49,7 @@ const VButton = (props) => {
     {
       !iconButton && !iconOnly && <LoadingButton
         variant={variant}
-        className={classes}
+        className={className}
         color={color}
         startIcon={startIcon ? <Icon>{startIcon}</Icon> : null}
         endIcon={endIcon ? <Icon>{endIcon}</Icon> : null}
@@ -66,7 +66,7 @@ const VButton = (props) => {
 };
 
 VButton.defaultProps = {
-  classes: '',
+  className: '',
   startIcon: null,
   endIcon: null,
   children: '',
