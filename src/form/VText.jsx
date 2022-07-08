@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import React, { forwardRef } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { useMemo } from "react";
 

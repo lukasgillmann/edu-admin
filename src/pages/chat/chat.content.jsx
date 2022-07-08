@@ -4,7 +4,6 @@ import VText from "../../form/VText";
 import { Icon } from '@iconify/react';
 import VAvatar from "../../form/VAvatar";
 import VFroala from "../../form/VFroala";
-import { useState } from "react";
 
 const chatData = [
   { key: 0, text: "I want to confirm something with you, can you help me?", url: '', type: '', toAdmin: true, time: '2022-07-07T21:10:10.088Z' },

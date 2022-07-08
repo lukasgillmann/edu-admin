@@ -28,7 +28,7 @@ const Chat = () => {
         <Grid item sm={12} md={8} className="flex justify-end">
           <VButton variant="text" color="primary" className="text-sm normal-case"><Icon icon="akar-icons:circle-check" />&nbsp;Mark All as Read</VButton>
           <VButton variant="text" color="primary" className="text-sm ml-2 normal-case"><Icon icon="bx:sort" />&nbsp;Sort</VButton>
-          <VButton startIcon="add" variant="contained" color="primary" className="text-sm ml-2 normal-case">New Messages</VButton>
+          <VButton startIcon="add" variant="contained" color="primary" className="text-sm ml-4 normal-case">New Messages</VButton>
         </Grid>
       </Grid>
     </Box>

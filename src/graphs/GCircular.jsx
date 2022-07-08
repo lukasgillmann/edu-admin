@@ -15,8 +15,6 @@ const data = [
   { name: "D1", y: 3 },
 ];
 
-const height = 250;
-
 const SideNavbar = (props) => {
 
   // const { data } = props;
@@ -48,7 +46,7 @@ const SideNavbar = (props) => {
       chart: {
         type: "pie",
         backgroundColor: "rgba(0, 0, 0, 0)",
-        height: height
+        height: 250
       },
       title: {
         text: "",
@@ -84,7 +82,7 @@ const SideNavbar = (props) => {
         enabled: false
       }
     };
-  }, [height]);
+  }, []);
 
 
 

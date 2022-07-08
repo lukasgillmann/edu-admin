@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import { Box, Grid, Icon } from "@mui/material";
 
 import Highcharts from "highcharts";
@@ -7,8 +7,6 @@ import highcharts3d from "highcharts/highcharts-3d";
 import VText from "../form/VText";
 import VSelect from "../form/VSelect";
 import { useAsterController } from "../context";
-import { useReducer } from "react";
-import { useEffect } from "react";
 highcharts3d(Highcharts);
 
 const options = [
@@ -19,8 +17,6 @@ const options = [
 
 const chartData1 = [123, 152, 100, 98, 120, 132, 144, 122, 123, 152, 100, 98, 120, 132, 144, 122, 123, 152, 100, 98, 120, 132, 144, 122, 123, 152, 100, 98, 120, 132, 144, 122];
 const chartData2 = [52, 62, 42, 45, 23, 55, 15, 16, 20, 36, 31, 45, 36, 30, 16, 18, 52, 62, 42, 45, 23, 55, 15, 16, 20, 36, 31, 45, 36, 30, 16, 18];
-
-const height = 400;
 
 const GDashboard = (props) => {
 
@@ -42,7 +38,7 @@ const GDashboard = (props) => {
     return {
       chart: {
         backgroundColor: "rgba(0, 0, 0, 0)",
-        height: height,
+        height: 400,
       },
       title: {
         text: "",
@@ -105,7 +101,7 @@ const GDashboard = (props) => {
         enabled: false
       }
     };
-  }, [height, darkMode]);
+  }, [darkMode]);
 
   return <Box {...rest}>
     <Grid container spacing={3}>
