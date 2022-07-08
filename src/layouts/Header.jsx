@@ -49,10 +49,10 @@ const Header = () => {
   }), [darkMode]);
 
   useEffect(() => {
-    if (windowSize.width < 992 && !miniSidenav) {
+    if (windowSize.width < 992) {
       actionMiniSidenav(dispatch, true);
     }
-  }, [windowSize.width, dispatch, miniSidenav]);
+  }, [windowSize.width, dispatch]);
 
   const onClick = (e) => {
     setAnchorEl(e.currentTarget);
@@ -60,7 +60,10 @@ const Header = () => {
   };
 
   const handleClose = () => setAnchorEl(null);
-  const onMiniSidenavClick = () => actionMiniSidenav(dispatch, !miniSidenav);
+  const onMiniSidenavClick = () => {
+    console.log('[mini check]', miniSidenav);
+    actionMiniSidenav(dispatch, !miniSidenav);
+  };
   const onDarkModeClick = () => {
     if (darkMode) {
       document.documentElement.classList.remove('dark');
