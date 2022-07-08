@@ -1,22 +1,39 @@
 import { InputAdornment, TextField, Icon } from "@mui/material";
-import React from "react";
+import React, { useMemo } from "react";
 
 const VInput = (props) => {
 
   const {
-    classes,
+    className,
+    inputClassName,
     label,
     value,
     setValue,
     rows,
     variant,
     startIcon,
-    endIcon
+    endIcon,
+    noBorder,
+    ...rest
   } = props;
+
+  const inputProps = startIcon ? {
+    startAdornment: (
+      <InputAdornment position="start">
+        <Icon className={inputClassName}>{startIcon}</Icon>
+      </InputAdornment>
+    )
+  } : endIcon ? {
+    endAdornment: (
+      <InputAdornment position="start">
+        <Icon className={inputClassName}>{endIcon}</Icon>
+      </InputAdornment>
+    )
+  } : {};
 
   return <>
     <TextField
-      className={classes}
+      className={className}
       label={label}
       value={value}
       onChange={e => setValue(e.target.value)}
@@ -24,32 +41,26 @@ const VInput = (props) => {
       rows={rows && rows > 1 ? rows : 1}
       variant={variant}
       InputProps={
-        startIcon ? {
-          startAdornment: (
-            <InputAdornment position="start">
-              <Icon>{startIcon}</Icon>
-            </InputAdornment>
-          )
-        } : endIcon ? {
-          endAdornment: (
-            <InputAdornment position="start">
-              <Icon>{endIcon}</Icon>
-            </InputAdornment>
-          )
-        } : {}
+        {
+          ...inputProps,
+          className: inputClassName
+        }
       }
+      {...rest}
     />
   </>;
 };
 
 VInput.defaultProps = {
-  classes: '',
+  className: '',
+  inputClassName: '',
   value: '',
   setValue: () => { },
   rows: 1,
   variant: 'outlined', // filled, standard
   startIcon: null,
-  endIcon: null
+  endIcon: null,
+  noBorder: false
 };
 
 

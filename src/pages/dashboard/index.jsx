@@ -17,7 +17,7 @@ const recentHistory = [
 
 const Dashboard = () => {
 
-  return <>
+  return <Box p={4}>
     <Grid container spacing={4}>
       <Grid item md={4} sm={6} xs={12}>
         <BAnaCard icon="person_add_alt" label="Total User" value="32 Learner" />
@@ -34,7 +34,7 @@ const Dashboard = () => {
         <GDashboard />
       </Grid>
     </Grid>
-  </>;
+  </Box>;
 };
 
 export default Dashboard;

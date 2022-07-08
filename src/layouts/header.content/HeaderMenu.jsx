@@ -17,18 +17,18 @@ const HeaderMenu = () => {
         <VText className="text-sm text-gray-400 leading-4 text-limit-1">Super Admin</VText>
       </Box>
     </VButton>
-    <Divider className="my-4" />
-    <VButton variant="text" className="flex items-center w-full justify-start px-4" onClick={onClick}>
+    <Divider className="my-4 bg-gray-200 dark:bg-gray-500" />
+    <VButton variant="text" className="flex items-center w-full justify-start px-4 text-left" onClick={onClick}>
       <VText className="text-base leading-5 text-limit-1" color="primary">
         <Icon className="text-2xl">person_add_alt</Icon>&nbsp;&nbsp;Add Another Account
       </VText>
     </VButton>
-    <VButton variant="text" className="flex items-center w-full justify-start px-4" onClick={onClick}>
+    <VButton variant="text" className="flex items-center w-full justify-start px-4 text-left" onClick={onClick}>
       <VText className="text-base leading-5 text-limit-1" color="primary">
         <Icon className="text-2xl">logout</Icon>&nbsp;&nbsp;Logout
       </VText>
     </VButton>
-    <Divider className="my-4" />
+    <Divider className="my-4 bg-gray-200 dark:bg-gray-500" />
     <Box className="px-4">
       <VButton variant="contained" color="primary" className="w-full" onClick={onClick}>
         Get Desktop App

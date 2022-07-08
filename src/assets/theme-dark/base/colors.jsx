@@ -4,6 +4,11 @@ const colors = {
     sidenav: "#1f283e",
     card: "#202940",
   },
+  primary: {
+    main: "#43B8B1",
+    state: "#D81B60",
+    contrastText: "#FFFFFF"
+  },
   white: {
     main: "#ffffff",
     focus: "#ffffff",

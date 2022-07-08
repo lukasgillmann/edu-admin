@@ -1,12 +1,11 @@
-import React, { useMemo, useRef } from "react";
+import React, { useMemo, useState, useEffect, useCallback } from "react";
 
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import highcharts3d from "highcharts/highcharts-3d";
 import { Box } from "@mui/material";
-import { useCallback } from "react";
-import { useState } from "react";
 import VText from "../form/VText";
+import { useAsterController } from "../context";
 highcharts3d(Highcharts);
 
 const data = [
@@ -22,7 +21,17 @@ const SideNavbar = (props) => {
 
   // const { data } = props;
 
+  const [controller] = useAsterController();
+  const { miniSidenav } = controller;
+
   const [coord, setCoord] = useState({ width: 0, height: 0 });
+  const [show, setShow] = useState(true);
+
+  useEffect
+  (() => {
+    setShow(false);
+    setTimeout(() => setShow(true), 300);
+  }, [miniSidenav]);
 
   const chartRef = useCallback((node) => {
     if (node) {
@@ -85,12 +94,15 @@ const SideNavbar = (props) => {
         <VText className="text-4xl">80</VText>
         <VText color="primary" className="text-sm">Contents</VText>
       </Box>
-      <HighchartsReact
-        ref={chartRef}
-        containerProps={{ style: { display: 'flex', justifyContent: 'center' } }}
-        highcharts={Highcharts}
-        options={chartOption}
-      />
+      {
+        show &&
+        <HighchartsReact
+          ref={chartRef}
+          containerProps={{ style: { display: 'flex', justifyContent: 'center' } }}
+          highcharts={Highcharts}
+          options={chartOption}
+        />
+      }
     </Box>;
 };
 

@@ -15,10 +15,10 @@ const HeaderAlert = () => {
     <VText className="text-2xl mx-4 font-bold">Notifications</VText>
     <Box sx={{ width: '100%', typography: 'body1' }}>
       <TabContext value={value}>
-        <Box className="border-0 border-b border-solid" sx={{ borderColor: 'divider' }} mt={2}>
+        <Box className="border-0 border-b border-solid border-gray-400" sx={{ borderColor: 'divider' }} mt={2}>
           <TabList onChange={handleChange} aria-label="lab API tabs example" className="h-7 min-h-0">
-            <Tab label="For You" value="1" className="h-7 min-h-0 w-40" />
-            <Tab label="System Update" value="2" className="h-7 min-h-0 w-40" />
+            <Tab label="For You" value="1" className="h-7 min-h-0 w-40 text-dark dark:text-white" />
+            <Tab label="System Update" value="2" className="h-7 min-h-0 w-40 text-dark dark:text-white" />
           </TabList>
         </Box>
         <TabPanel value="1" className="w-80 p-4 v-light-scrollbar max-h-72 overflow-y-auto">
@@ -29,7 +29,7 @@ const HeaderAlert = () => {
             <VText color="dark" className="text-base">
               <b>Jonathan Doe Imannuel</b> edit 3 sections on <b>Introduction to Figma part</b>
             </VText>
-            <Divider className="my-2" />
+            <Divider className="my-2 bg-gray-200 dark:bg-gray-500" />
           </Box>
           <Box>
             <VText color="primary" className="text-xs">
@@ -38,7 +38,7 @@ const HeaderAlert = () => {
             <VText color="dark" className="text-base">
               <b>Jonathan Doe Imannuel</b> edit 3 sections on <b>Introduction to Figma part</b>
             </VText>
-            <Divider className="my-2" />
+            <Divider className="my-2 bg-gray-200 dark:bg-gray-500" />
           </Box>
           <Box>
             <VText color="primary" className="text-xs">
@@ -47,7 +47,7 @@ const HeaderAlert = () => {
             <VText color="dark" className="text-base">
               <b>Jonathan Doe Imannuel</b> edit 3 sections on <b>Introduction to Figma part</b>
             </VText>
-            <Divider className="my-2" />
+            <Divider className="my-2 bg-gray-200 dark:bg-gray-500" />
           </Box>
           <Box>
             <VText color="primary" className="text-xs">
@@ -56,7 +56,7 @@ const HeaderAlert = () => {
             <VText color="dark" className="text-base">
               <b>Jonathan Doe Imannuel</b> edit 3 sections on <b>Introduction to Figma part</b>
             </VText>
-            <Divider className="my-2" />
+            <Divider className="my-2 bg-gray-200 dark:bg-gray-500" />
           </Box>
           <Box>
             <VText color="primary" className="text-xs">
@@ -75,7 +75,7 @@ const HeaderAlert = () => {
             <VText color="dark" className="text-base">
               <b>Jonathan Doe Imannuel</b> edit 4 sections on <b>Introduction to Figma part</b>
             </VText>
-            <Divider className="my-2" />
+            <Divider className="my-2 bg-gray-200 dark:bg-gray-500" />
           </Box>
           <Box>
             <VText color="primary" className="text-xs">
@@ -84,7 +84,7 @@ const HeaderAlert = () => {
             <VText color="dark" className="text-base">
               <b>Jonathan Doe Imannuel</b> edit 4 sections on <b>Introduction to Figma part</b>
             </VText>
-            <Divider className="my-2" />
+            <Divider className="my-2 bg-gray-200 dark:bg-gray-500" />
           </Box>
           <Box>
             <VText color="primary" className="text-xs">
@@ -93,7 +93,7 @@ const HeaderAlert = () => {
             <VText color="dark" className="text-base">
               <b>Jonathan Doe Imannuel</b> edit 4 sections on <b>Introduction to Figma part</b>
             </VText>
-            <Divider className="my-2" />
+            <Divider className="my-2 bg-gray-200 dark:bg-gray-500" />
           </Box>
           <Box>
             <VText color="primary" className="text-xs">
@@ -102,7 +102,7 @@ const HeaderAlert = () => {
             <VText color="dark" className="text-base">
               <b>Jonathan Doe Imannuel</b> edit 4 sections on <b>Introduction to Figma part</b>
             </VText>
-            <Divider className="my-2" />
+            <Divider className="my-2 bg-gray-200 dark:bg-gray-500" />
           </Box>
           <Box>
             <VText color="primary" className="text-xs">

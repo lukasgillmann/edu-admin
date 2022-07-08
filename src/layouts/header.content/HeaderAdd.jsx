@@ -11,7 +11,7 @@ const HeaderAdd = () => {
   return <Box className="w-64 my-2">
     <VText color="primary" className="text-xs mx-7">Content</VText>
     <Box className="px-4">
-      <VButton variant="text" color="dark" className="flex items-center w-full justify-start" onClick={onClick}>
+      <VButton variant="text" className="flex items-center w-full justify-start" onClick={onClick}>
         <VText className="text-sm leading-5 text-limit-1">
           <Icon className="text-xl">add</Icon>&nbsp;&nbsp;Add Another Account
         </VText>
@@ -32,11 +32,11 @@ const HeaderAdd = () => {
       </VButton>
     </Box>
 
-    <Divider className="my-4" />
+    <Divider className="my-4 bg-gray-200 dark:bg-gray-500" />
 
     <VText color="primary" className="text-xs mx-7">Users</VText>
     <Box className="px-4">
-      <VButton variant="text" color="dark" className="flex items-center w-full justify-start" onClick={onClick}>
+      <VButton variant="text" className="flex items-center w-full justify-start" onClick={onClick}>
         <VText className="text-sm leading-5 text-limit-1">
           <Icon className="text-xl">add</Icon>&nbsp;&nbsp;Add New User
         </VText>
@@ -50,11 +50,11 @@ const HeaderAdd = () => {
       </VButton>
     </Box>
 
-    <Divider className="my-4" />
+    <Divider className="my-4 bg-gray-200 dark:bg-gray-500" />
 
     <VText color="primary" className="text-xs mx-7">File & Folders</VText>
     <Box className="px-4">
-      <VButton variant="text" color="dark" className="flex items-center w-full justify-start" onClick={onClick}>
+      <VButton variant="text" className="flex items-center w-full justify-start" onClick={onClick}>
         <VText className="text-sm leading-5 text-limit-1">
           <Icon className="text-xl">add</Icon>&nbsp;&nbsp;Upload File
         </VText>

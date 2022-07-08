@@ -31,7 +31,7 @@ const VButton = (props) => {
         {...rest}
       // disableElevation
       >
-        <Icon>{startIcon}</Icon>
+        {children}
       </LoadingButton>
     }
     {
@@ -43,7 +43,7 @@ const VButton = (props) => {
         disabled={disabled}
         {...rest}
       >
-        <Icon>{startIcon}</Icon>
+        {children}
       </IconButton>
     }
     {

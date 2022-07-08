@@ -11,7 +11,7 @@ const BAnaCard = (props) => {
       <Icon className="color-primary">{icon}</Icon>
     </Box>
     <Box className="ml-6">
-      <VText className="text-sm">{label}</VText>
+      <VText color="primary" className="text-sm">{label}</VText>
       <VText className="text-xl">{value}</VText>
     </Box>
   </Box>;

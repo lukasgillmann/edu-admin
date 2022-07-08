@@ -7,6 +7,8 @@ import highcharts3d from "highcharts/highcharts-3d";
 import VText from "../form/VText";
 import VSelect from "../form/VSelect";
 import { useAsterController } from "../context";
+import { useReducer } from "react";
+import { useEffect } from "react";
 highcharts3d(Highcharts);
 
 const options = [
@@ -25,9 +27,15 @@ const GDashboard = (props) => {
   const { data, ...rest } = props;
 
   const [controller] = useAsterController();
-  const { darkMode, miniSidebar } = controller;
+  const { darkMode, miniSidenav } = controller;
 
   const [option, setOption] = useState('');
+  const [show, setShow] = useState(true);
+
+  useEffect(() => {
+    setShow(false);
+    setTimeout(() => setShow(true), 300);
+  }, [miniSidenav]);
 
   const chartOption = useMemo(() => {
 
@@ -127,10 +135,12 @@ const GDashboard = (props) => {
         />
       </Grid>
       <Grid item md={12}>
-        <HighchartsReact
-          highcharts={Highcharts}
-          options={chartOption}
-        />
+        {
+          show && <HighchartsReact
+            highcharts={Highcharts}
+            options={chartOption}
+          />
+        }
       </Grid>
     </Grid>
   </Box>;

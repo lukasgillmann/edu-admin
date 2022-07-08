@@ -1,18 +1,36 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import FroalaEditor from 'react-froala-wysiwyg';
 
 import 'froala-editor/css/froala_editor.pkgd.min.css';
+import 'froala-editor/css/themes/dark.min.css';
+import 'froala-editor/css/themes/royal.min.css';
 import "froala-editor/js/froala_editor.pkgd.min";
 import "froala-editor/css/froala_style.min.css";
 import "froala-editor/js/plugins.pkgd.min";
 import "froala-editor/js/plugins/colors.min";
+import { useAsterController } from "../context";
 
 const VFroala = (props) => {
 
-  const { model, setModel, fileUpload, classes, maxCount } = props;
+  const { onSubmit, fileUpload, className, maxCount, isEnterSubmit, isChat } = props;
+
+  const [model, setModel] = useState('');
+
+  const [controller] = useAsterController();
+  const { darkMode } = controller;
 
   const onKeyDownHandler = (evt) => {
     window.isEnterPressed = evt.keyCode === 13 && !evt.altKey && !evt.shiftKey && !evt.ctrlKey ? true : false;
+  };
+
+  const onModelChange = (v) => {
+    if (window.isEnterPressed && isEnterSubmit) {
+      window.isEnterPressed = false;
+      onSubmit(model);
+      setModel('');
+    } else {
+      setModel(v);
+    }
   };
 
   const froalaConfig = useMemo(() => ({
@@ -24,8 +42,10 @@ const VFroala = (props) => {
     quickInsertEnabled: false,
     imageUpload: fileUpload,
     fileUpload: fileUpload,
-    charCounterCount: true,
-    ...(maxCount ? { charCounterMax: maxCount } : {}),
+    charCounterCount: !isChat,
+    immediateReactModelUpdate: true,
+    theme: darkMode ? 'dark' : 'royal',
+    ...(maxCount && !isChat ? { charCounterMax: maxCount } : {}),
     events: {
       keydown: onKeyDownHandler
     },
@@ -34,40 +54,30 @@ const VFroala = (props) => {
         'buttons': ['bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', 'fontFamily', 'fontSize', 'textColor', 'backgroundColor', 'inlineClass', 'inlineStyle', 'clearFormatting']
       },
       'moreParagraph': {
-        'buttons': ['alignLeft', 'alignCenter', 'formatOLSimple', 'alignRight', 'alignJustify', 'formatOL', 'formatUL', 'paragraphFormat', 'paragraphStyle', 'lineHeight', 'outdent', 'indent', 'quote']
+        'buttons': ['alignLeft', 'alignCenter', 'formatOLSimple', 'alignRight', 'alignJustify', 'formatOL', 'formatUL', 'paragraphFormat', 'paragraphStyle', 'lineHeight', 'outdent', 'indent', 'quote'],
+        ...(isChat ? { 'buttonsVisible': 2 } : {})
       },
-      'moreRich': {
-        'buttons': ['insertImage', 'insertHR']
-      },
+      ...(isChat ? {} : { 'moreRich': { 'buttons': ['insertImage', 'insertHR'] } }),
       'moreMisc': {
-        'buttons': ['undo', 'redo', 'fullscreen', 'html'],
+        'buttons': isChat ? ['undo', 'redo', 'fullscreen'] : ['undo', 'redo', 'fullscreen', 'html'],
         'align': 'right',
         'buttonsVisible': 4
       }
     },
     // tooltips: false,
     placeholderText: "Type...",
-    // colorsBackground: [
-    //   '#15E67F', '#E3DE8C', '#D8A076', '#D83762', '#76B6D8', 'REMOVE',
-    //   '#1C7A90', '#249CB8', '#4ABED9', '#FBD75B', '#FBE571', '#FFFFFF'
-    // ],
-    // colorsStep: 6,
-    // colorsText: [
-    //   '#15E67F', '#E3DE8C', '#D8A076', '#D83762', '#76B6D8', 'REMOVE',
-    //   '#1C7A90', '#249CB8', '#4ABED9', '#FBD75B', '#FBE571', '#FFFFFF'
-    // ],
     tag: "textarea",
 
-  }), [fileUpload, maxCount]);
+  }), [fileUpload, maxCount, isChat, darkMode]);
 
-  return <FroalaEditor model={model} onModelChange={setModel} config={froalaConfig} className={classes} />;
+  return <FroalaEditor key={darkMode} model={model} onModelChange={onModelChange} config={froalaConfig} className={className} />;
 };
 
 VFroala.defaultProps = {
   model: "",
   setModel: () => { },
   fileUpload: false,
-  classes: '',
+  className: '',
   maxCount: null
 };
 
