@@ -1,6 +1,9 @@
 import { createTheme } from "@mui/material";
 import colors from "./base/colors";
+import textfield from "./components/form/textField";
 import card from "./components/card";
+import select from "./components/form/select";
+import menu from "./components/menu";
 
 export default createTheme({
   boxShadows: {
@@ -10,12 +13,15 @@ export default createTheme({
     lg: '4px 4px 5px rgba(100, 100, 100, 0.4)',
     xl: '5px 5px 6px rgba(100, 100, 100, 0.4)',
   },
-  palette: {...colors},
+  palette: { ...colors },
   functions: {
     pxToRem: (number, baseNumber = 16) => `${number / baseNumber}rem`,
     linearGradient: (color, colorState, angle = 195) => `linear-gradient(${angle}deg, ${color}, ${colorState})`
   },
   components: {
-    MuiCard: {...card}
+    MuiCard: { ...card },
+    MuiTextField: { ...textfield },
+    MuiSelect: { ...select },
+    MuiMenu: { ...menu },
   }
 });

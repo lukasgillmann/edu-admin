@@ -4,6 +4,8 @@ import { Icon } from '@iconify/react';
 import VButton from "../../form/VButton";
 import VText from "../../form/VText";
 
+import BTable from "../../components/BTable";
+
 const users = [
   {
     name: 'Jonathan Doe Imannuel',
@@ -22,7 +24,7 @@ const User = () => {
     <Box className="px-6 py-8" id="v-chat-title">
       <Grid container spacing={2}>
         <Grid item sm={12} md={4} className="flex">
-          <VText color="dark" className="text-2xl">24</VText>&nbsp;
+          <VText className="text-2xl">24</VText>&nbsp;
           <VText color="primary" className="text-2xl">User in total</VText>
         </Grid>
         <Grid item sm={12} md={8} className="flex justify-end">
@@ -40,6 +42,10 @@ const User = () => {
           </VButton>
         </Grid>
       </Grid>
+    </Box>
+
+    <Box className="vvvvvvvvvvvvv">
+      <BTable />
     </Box>
   </Box>;
 };

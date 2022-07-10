@@ -116,3 +116,21 @@ body,
     word-break: break-all;
   }
 }
+
+.v-spin-hide {
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  &[type=number] {
+    -moz-appearance:textfield; /* Firefox */
+  }
+}
+
+.v-per-page-select {
+  & .MuiSelect-select {
+    padding: 5px 10px;
+  }
+}
