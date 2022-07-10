@@ -60,10 +60,7 @@ const Header = () => {
   };
 
   const handleClose = () => setAnchorEl(null);
-  const onMiniSidenavClick = () => {
-    console.log('[mini check]', miniSidenav);
-    actionMiniSidenav(dispatch, !miniSidenav);
-  };
+  const onMiniSidenavClick = () => actionMiniSidenav(dispatch, !miniSidenav);
   const onDarkModeClick = () => {
     if (darkMode) {
       document.documentElement.classList.remove('dark');

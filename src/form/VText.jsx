@@ -17,12 +17,12 @@ const VText = (props) => {
     }
   }, [color]);
 
-  return <Box className={`${colorClass} ${className}`} {...rest}>{children}</Box>;
+  return <span className={`${colorClass} ${className}`} {...rest}>{children}</span>;
 
 };
 
 VText.defaultProps = {
-  color: "dark",
+  color: "secondary",
   className: '',
 };
 
