@@ -72,8 +72,6 @@ const BTable = () => {
           color: darkMode ? 'white' : 'black'
         },
         paging: true,
-        // pageSize: pageSize,
-        // pageSizeOptions: [5, 10, 20]
       }}
       localization={{
         pagination: {
@@ -83,24 +81,9 @@ const BTable = () => {
       }}
       columns={columns}
       data={data1}
-      // onChangePage={onChangePage}
-      // onChangeRowsPerPage={onChangeRowsPerPage}
-      // totalCount={220}
-      // page={page}
       isLoading={false}
       components={{
         Headers: 'div',
-        // Pagination: props => <TablePagination
-        //   {...props}
-        //   color="secondary"
-        //   page={0}
-        //   count={100}
-        //   rowsPerPageOptions={[5, 10, 20, "All"]}
-        //   rowsPerPage={pageSize}
-        //   //updates pagination, but no re-size
-        //   onChangeRowsPerPage={onChangeRowsPerPage}
-        //   onChangePage={onChangePage}
-        // />
         Pagination: props =>
           <BPagination
             total={27}
@@ -111,9 +94,6 @@ const BTable = () => {
           />
       }}
     />
-    <Box className="flex px-4 mt-2">
-      {/* <BPagination total={17} onPageChange={onPageChange} onPageSizeChange={onPageSizeChange} /> */}
-    </Box>
   </Box>;
 };
 
