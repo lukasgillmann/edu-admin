@@ -14,8 +14,6 @@ import HeaderAlert from "./header.content/HeaderAlert";
 import HeaderMenu from "./header.content/HeaderMenu";
 import HeaderSearch from "./header.content/HeaderSearch";
 
-
-
 const Header = () => {
 
   const [controller, dispatch] = useAsterController();
