@@ -1,100 +1,71 @@
-import { Box } from '@mui/material';
-import Materialtable from 'material-table';
-import { useEffect } from 'react';
-import { useRef } from 'react';
-import { useState } from 'react';
-import { useAsterController } from '../context';
-import VText from "../form/VText";
-import BPagination from './BPagination';
+import { Checkbox } from '@mui/material';
+import { memo } from 'react';
+import DataTable from 'react-data-table-component';
+import { useTranslation } from 'react-i18next';
+import Skeleton from 'react-loading-skeleton';
+import { VText } from '../form';
 
-const data1 = [
-  { id: 1, email: "george.bluth@reqres.in", first_name: "George", last_name: "Bluth", avatar: "https://reqres.in/img/faces/1-image.jpg" },
-  { id: 2, email: "janet.weaver@reqres.in", first_name: "Janet", last_name: "Weaver", avatar: "https://reqres.in/img/faces/2-image.jpg" },
-  { id: 3, email: "emma.wong@reqres.in", first_name: "Emma", last_name: "Wong", avatar: "https://reqres.in/img/faces/3-image.jpg" },
-  { id: 4, email: "eve.holt@reqres.in", first_name: "Eve", last_name: "Holt", avatar: "https://reqres.in/img/faces/4-image.jpg" },
-  { id: 5, email: "charles.morris@reqres.in", first_name: "Charles", last_name: "Morris", avatar: "https://reqres.in/img/faces/5-image.jpg" }
-];
+const CustomTable = (props) => {
 
-const columns = [
-  {
-    title: 'Avatar',
-    field: 'avatar',
-    render: rowData => <img style={{ height: 36, borderRadius: '50%' }} src={rowData.avatar} alt="" />
-  },
-  {
-    title: 'Id',
-    field: 'id',
-    render: rowData => <VText>{rowData.id}</VText>
-  },
-  {
-    title: 'First Name',
-    field: 'first_name',
-    render: rowData => <VText>{rowData.first_name}</VText>
-  },
-  {
-    title: 'Last Name',
-    field: 'last_name',
-    render: rowData => <VText>{rowData.last_name}</VText>
-  },
-];
+  const { columns, data, loading, isSelect, onSelectChange, ...rest } = props;
 
-const BTable = () => {
+  const { t } = useTranslation('common');
 
-  const [controller] = useAsterController();
-  const { darkMode } = controller;
-
-  const tableRef = useRef(null);
-
-  const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(5);
-
-  const onPageChange = (page, size) => {
-    setPage(page);
+  const handleChange = ({ selectedRows }) => {
+    onSelectChange(selectedRows);
   };
 
-  const onPageSizeChange = (page, size) => {
-    setPageSize(size);
-  };
-
-  return <Box>
-    <Materialtable
-      tableRef={tableRef}
-      style={{ backgroundColor: 'transparent', boxShadow: 'none' }}
-      title="AA"
-      options={{
-        paginationType: 'stepped',
-        paginationPosition: 'bottom',
-        search: false,
-        showTitle: false,
-        toolbar: false,
-        headerStyle: {
-          backgroundColor: 'transparent',
-          color: darkMode ? 'white' : 'black'
-        },
-        paging: true,
-      }}
-      localization={{
-        pagination: {
-          labelRowsPerPage: <VText>Per Page</VText>,
-          labelDisplayedRows: `{from}-{to} de {count}`
-        }
-      }}
+  return <div className="v-table w-full">
+    <DataTable
       columns={columns}
-      data={data1}
-      isLoading={false}
-      components={{
-        Headers: 'div',
-        Pagination: props =>
-          <BPagination
-            total={27}
-            page={page}
-            pageSize={pageSize}
-            onPageChange={onPageChange}
-            onPageSizeChange={onPageSizeChange}
-          />
-      }}
+      data={data}
+      responsive
+      theme="default"
+      selectableRowsComponent={Checkbox}
+      noDataComponent={<VText div className="my-4">{t("There are no records to display")}</VText>}
+      persistTableHead={true}
+      selectableRows={isSelect}
+      progressPending={loading}
+      progressComponent={<div className="h-160 w-full">
+        <Skeleton count={10} className="w-full h-16 mt-2" />
+      </div>}
+      fixedHeader
+      fixedHeaderScrollHeight="100%"
+      // pagination
+      // paginationRowsPerPageOptions={[5, 10, 20]}
+      // paginationPerPage={5}
+      // paginationComponent={BPagination}
+      paginationServer
+      // paginationTotalRows={total}
+      // onChangeRowsPerPage={onPerRowsChange}
+      // onChangePage={onChangePage}
+      highlightOnHover={true}
+      onSelectedRowsChange={handleChange}
+      {...rest}
     />
-  </Box>;
+  </div>;
 };
 
+CustomTable.defaultProps = {
+  columns: [],
+  data: [],
+  loading: false,
+  isSelect: false,
+  handlePageChange: () => { },
+  handlePageSizeChange: () => { },
+  onSelectChange: () => { }
+};
+
+
+const equalCheck = (prevProps, nextProps) => {
+
+  if (prevProps.loading !== nextProps.loading) return false;
+  if (
+    (prevProps.page != null && nextProps.page != null) &&
+    (prevProps.page !== nextProps.page || prevProps.pageSize !== nextProps.pageSize)
+  ) return false;
+  return true;
+};
+
+const BTable = memo(CustomTable, equalCheck);
 export default BTable;

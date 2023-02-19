@@ -1,29 +1,46 @@
+import { Icon } from '@iconify/react';
+
 const routes = [
-  { route: 'dashboard', icon: 'dashboard_outlined', text: 'Dashboard' },
-  { route: 'inbox', icon: 'chat', text: 'Inbox', divider: true },
+  { route: 'dashboard', icon: <Icon icon="lucide:layout-dashboard" />, text: 'Dashboard' },
+  { route: 'inbox', icon: <Icon icon="majesticons:chat-line" />, text: 'Inbox', divider: true },
   {
     route: 'user',
-    icon: 'person_outline',
+    icon: <Icon icon="ooui:user-avatar-outline" />,
     text: 'User',
     children: [
       {
-        route: 'user',
-        text: 'All User'
+        route: 'learners',
+        text: 'Learners',
+        children: [
+          {
+            route: 'detail',
+            text: 'User Detail'
+          }, {
+            route: 'edit',
+            text: 'User Edit'
+          }
+        ]
       }, {
-        route: 'group',
-        text: 'Group'
+        route: 'groups',
+        text: 'Groups',
+        children: [
+          {
+            route: 'detail',
+            text: 'General Learning Group'
+          }
+        ]
       }, {
-        route: 'tutor',
-        text: 'Tutor'
+        route: 'tutors',
+        text: 'Tutors'
       }, {
-        route: 'coach',
-        text: 'Coach'
+        route: 'coaches',
+        text: 'Coaches'
       }
     ]
   },
   {
     route: 'catalog',
-    icon: 'event_note',
+    icon: <Icon icon="heroicons-outline:clipboard-list" />,
     text: 'Catalog',
     children: [
       {
@@ -36,46 +53,34 @@ const routes = [
         route: 'virtual',
         text: 'Virtual Class'
       }, {
-        route: 'comment',
-        text: 'Comment'
-      }, {
-        route: 'review',
-        text: 'Review'
+        route: 'physical-session',
+        text: 'Physical Session'
       }
     ]
   },
   {
-    route: 'notifications',
-    icon: 'mail_outline',
-    text: 'Notifications',
-    children: [
-      {
-        route: 'email',
-        text: 'Email'
-      }, {
-        route: 'sms',
-        text: 'SMS'
-      }
-    ]
+    route: 'email',
+    icon: <Icon icon="ic:round-mail-outline" />,
+    text: 'Email',
   },
   {
     route: 'tracking',
-    icon: 'bar_chart',
+    icon: <Icon icon="bx:bar-chart-alt-2" />,
     text: 'Tracking'
   },
   {
     route: 'certificate',
-    icon: 'school',
+    icon: <Icon icon="ion:school-sharp" />,
     text: 'Certificate'
   },
   {
     route: 'licenses',
-    icon: 'key',
+    icon: <Icon icon="ic:sharp-key" />,
     text: 'Licenses'
   },
   {
     route: 'public_site',
-    icon: 'web_asset',
+    icon: <Icon icon="uil:window" />,
     text: 'Public Site'
   },
 

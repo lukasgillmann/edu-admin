@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import FroalaEditor from 'react-froala-wysiwyg';
 
 import 'froala-editor/css/froala_editor.pkgd.min.css';
@@ -9,12 +9,13 @@ import "froala-editor/css/froala_style.min.css";
 import "froala-editor/js/plugins.pkgd.min";
 import "froala-editor/js/plugins/colors.min";
 import { useAsterController } from "../context";
+import { useTranslation } from "react-i18next";
 
 const VFroala = (props) => {
 
-  const { onSubmit, fileUpload, className, maxCount, isEnterSubmit, isChat } = props;
+  const { t } = useTranslation('common');
 
-  const [model, setModel] = useState('');
+  const { onSubmit, fileUpload, className, maxCount, isEnterSubmit, model, setModel, isChat } = props;
 
   const [controller] = useAsterController();
   const { darkMode } = controller;
@@ -38,6 +39,7 @@ const VFroala = (props) => {
     shortcutsEnabled: [""],
     shortcutsHint: false,
     attribution: false,
+    toolbarSticky: false,
     iframe: false,
     quickInsertEnabled: false,
     imageUpload: fileUpload,
@@ -65,10 +67,10 @@ const VFroala = (props) => {
       }
     },
     // tooltips: false,
-    placeholderText: "Type...",
+    placeholderText: t("Type..."),
     tag: "textarea",
 
-  }), [fileUpload, maxCount, isChat, darkMode]);
+  }), [fileUpload, maxCount, isChat, darkMode, t]);
 
   return <FroalaEditor key={darkMode} model={model} onModelChange={onModelChange} config={froalaConfig} className={className} />;
 };
@@ -78,7 +80,8 @@ VFroala.defaultProps = {
   setModel: () => { },
   fileUpload: false,
   className: '',
-  maxCount: null
+  maxCount: null,
+  isEnterSubmit: false
 };
 
 export default VFroala;

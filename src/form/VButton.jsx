@@ -9,25 +9,16 @@ const VButton = (props) => {
     startIcon,
     endIcon,
     children,
-    onClick,
-    variant,
     iconButton,
     iconOnly,
-    color,
-    disabled,
-    loading,
     ...rest
   } = props;
 
   return <>
     {
       iconButton && <LoadingButton
-        variant={variant}
-        className={`${className} p-2 min-w-0 rounded-lg`}
-        color={color}
-        onClick={onClick}
-        disabled={disabled}
-        loading={loading}
+        className={`${className} p-2 min-w-0 normal-case`}
+        sx={{ borderRadius: '8px' }}
         {...rest}
       // disableElevation
       >
@@ -36,11 +27,7 @@ const VButton = (props) => {
     }
     {
       iconOnly && <IconButton
-        variant={variant}
         className={`${className} p-2 min-w-0`}
-        color={color}
-        onClick={onClick}
-        disabled={disabled}
         {...rest}
       >
         {children}
@@ -48,14 +35,9 @@ const VButton = (props) => {
     }
     {
       !iconButton && !iconOnly && <LoadingButton
-        variant={variant}
-        className={className}
-        color={color}
+        className={`normal-case ${className}`}
         startIcon={startIcon ? <Icon>{startIcon}</Icon> : null}
         endIcon={endIcon ? <Icon>{endIcon}</Icon> : null}
-        onClick={onClick}
-        disabled={disabled}
-        loading={loading}
         loadingPosition={startIcon ? "start" : undefined}
         {...rest}
       >
@@ -70,13 +52,10 @@ VButton.defaultProps = {
   startIcon: null,
   endIcon: null,
   children: '',
-  onClick: () => { },
-  variant: 'contained',
   iconButton: false,
   iconOnly: false,
-  color: 'primary',
-  disabled: false,
-  loading: false
+  // disabled: false,
+  // loading: false
 };
 
 export default VButton;

@@ -1,11 +1,7 @@
 import React from "react";
-import VText from "../../form/VText";
 
 const Help = () => {
-
-    return <>
-        <VText className="text-3xl">This is Help page</VText>
-    </>;
+  return <iframe title="help" src="https://aide.univo.fr/" className="w-full h-full border-0"></iframe>
 };
 
 export default Help;

@@ -4,8 +4,8 @@ import React from "react";
 const VInput = (props) => {
 
   const {
-    className,
     inputClassName,
+    InputClassName,
     label,
     value,
     setValue,
@@ -20,29 +20,32 @@ const VInput = (props) => {
   const inputProps = startIcon ? {
     startAdornment: (
       <InputAdornment position="start">
-        <Icon className={inputClassName}>{startIcon}</Icon>
+        <Icon className={InputClassName}>{startIcon}</Icon>
       </InputAdornment>
     )
   } : endIcon ? {
     endAdornment: (
       <InputAdornment position="start">
-        <Icon className={inputClassName}>{endIcon}</Icon>
+        <Icon className={InputClassName}>{endIcon}</Icon>
       </InputAdornment>
     )
   } : {};
 
   return <>
     <TextField
-      className={className}
       label={label}
       value={value}
       onChange={e => setValue(e.target.value)}
       multiline={rows && rows > 1 ? true : false}
       rows={rows && rows > 1 ? rows : 1}
-      variant={variant}
       InputProps={
         {
           ...inputProps,
+          className: InputClassName
+        }
+      }
+      inputProps={
+        {
           className: inputClassName
         }
       }
@@ -52,15 +55,13 @@ const VInput = (props) => {
 };
 
 VInput.defaultProps = {
-  className: '',
-  inputClassName: '',
+  InputClassName: '',
   value: '',
   setValue: () => { },
   rows: 1,
   variant: 'outlined', // filled, standard
   startIcon: null,
   endIcon: null,
-  noBorder: false
 };
 
 

@@ -8,18 +8,13 @@ import PropTypes from "prop-types";
 
 // Custom styles for VAvatar
 const VAvatarRoot = styled(Avatar)(({ theme, ownerState }) => {
-  const { palette, functions, typography, boxShadows } = theme;
-  const { shadow, bgColor, size } = ownerState;
+  const { typography } = theme;
+  const { size } = ownerState;
 
-  const { gradients } = palette;
-  const { pxToRem, linearGradient } = functions;
   const { fontWeightRegular } = typography;
 
   // backgroundImage value
-  const backgroundValue =
-    bgColor === "transparent"
-      ? 'transparent'
-      : linearGradient(gradients[bgColor].main, gradients[bgColor].state);
+  const backgroundValue = '#F5F5F5'
 
   // size value
   let sizeValue;
@@ -27,44 +22,44 @@ const VAvatarRoot = styled(Avatar)(({ theme, ownerState }) => {
   switch (size) {
     case "xs":
       sizeValue = {
-        width: pxToRem(24),
-        height: pxToRem(24),
-        fontSize: pxToRem(12),
+        width: 24,
+        height: 24,
+        fontSize: 12,
       };
       break;
     case "sm":
       sizeValue = {
-        width: pxToRem(36),
-        height: pxToRem(36),
-        fontSize: pxToRem(14),
+        width: 36,
+        height: 36,
+        fontSize: 14,
       };
       break;
     case "lg":
       sizeValue = {
-        width: pxToRem(58),
-        height: pxToRem(58),
-        fontSize: pxToRem(18),
+        width: 58,
+        height: 58,
+        fontSize: 18,
       };
       break;
     case "xl":
       sizeValue = {
-        width: pxToRem(74),
-        height: pxToRem(74),
-        fontSize: pxToRem(20),
+        width: 74,
+        height: 74,
+        fontSize: 20,
       };
       break;
     case "xxl":
       sizeValue = {
-        width: pxToRem(110),
-        height: pxToRem(110),
-        fontSize: pxToRem(24),
+        width: 110,
+        height: 110,
+        fontSize: 24,
       };
       break;
     default: {
       sizeValue = {
-        width: pxToRem(48),
-        height: pxToRem(48),
-        fontSize: pxToRem(16),
+        width: 48,
+        height: 48,
+        fontSize: 16,
       };
     }
   }
@@ -73,21 +68,19 @@ const VAvatarRoot = styled(Avatar)(({ theme, ownerState }) => {
     background: backgroundValue,
     color: '#FFFFFF',
     fontWeight: fontWeightRegular,
-    boxShadow: boxShadows[shadow],
     ...sizeValue,
   };
 });
 
 
-const VAvatar = forwardRef(({ bgColor, size, shadow, ...rest }, ref) => (
-  <VAvatarRoot ref={ref} ownerState={{ shadow, bgColor, size }} {...rest} />
+const VAvatar = forwardRef(({ bgColor, size, ...rest }, ref) => (
+  <VAvatarRoot ref={ref} ownerState={{ bgColor, size }} {...rest} />
 ));
 
 // Setting default values for the props of VAvatar
 VAvatar.defaultProps = {
   bgColor: "transparent",
   size: "md",
-  shadow: "none",
 };
 
 // Typechecking props for the VAvatar
@@ -104,7 +97,6 @@ VAvatar.propTypes = {
     "dark",
   ]),
   size: PropTypes.oneOf(["xs", "sm", "md", "lg", "xl", "xxl"]),
-  shadow: PropTypes.oneOf(["none", "xs", "sm", "md", "lg", "xl", "xxl", "inset"]),
 };
 
 export default VAvatar;

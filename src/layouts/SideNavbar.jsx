@@ -1,18 +1,19 @@
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
-import { Collapse, Icon, List, ListItemButton, ListItemIcon, ListItemText, Box, styled, Divider } from "@mui/material";
+import { Collapse, List, ListItemButton, ListItemIcon, ListItemText, styled, Divider } from "@mui/material";
 import React, { Fragment, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-
+import { Icon } from '@iconify/react';
 import MuiDrawer from '@mui/material/Drawer';
+import { useTranslation } from 'react-i18next';
 
 import VImage from "../form/VImage";
-
 import routes from "../routes";
-import { useAsterController } from "../context";
-import VSwitch from "../form/VSwitch";
-import { actionMiniSidenav } from "../context/action";
+import { useAsterController, useWindowSize } from "../context";
+import { actionMiniSidenav, actionMobile } from "../context/action";
 import VText from "../form/VText";
-import { useMemo } from "react";
+import { useEffect } from "react";
+import { BPopOver } from "../components";
+import { VButton } from "../form";
 
 const drawerWidth = 240;
 
@@ -64,16 +65,27 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const SideNavbar = () => {
 
+  const { t } = useTranslation('common');
+
   const [controller, dispatch] = useAsterController();
-  const { miniSidenav, darkMode } = controller;
+  const { miniSidenav, mobile } = controller;
 
   const location = useLocation();
   const navigate = useNavigate();
+  const windowSize = useWindowSize();
   const [openRoutes, setOpenRoutes] = useState([]);
+  const [setting, setSetting] = useState(false);
 
-  const logoClass = useMemo(() => darkMode ? 'bg-indigo-900' : 'bg-white', [darkMode]);
-  const activeClassItem = useMemo(() => darkMode ? 'bg-indigo-900' : 'bg-red-100', [darkMode]);
-  const activeClassSubItem = useMemo(() => darkMode ? 'bg-indigo-700' : 'bg-red-100', [darkMode]);
+  useEffect(() => {
+    const splits = location.pathname.split('/');
+    if (splits.length > 2 && splits[2]) {
+      setOpenRoutes(routes => [...new Set([...routes, splits[1]])]);
+    }
+  }, [location.pathname]);
+
+  useEffect(() => {
+    actionMobile(dispatch, windowSize.width < 992 ? true : false);
+  }, [windowSize.width, dispatch]);
 
   const onClick = (route, subRoute = '') => {
     const isCollapse = routes.find(v => v.route === route)?.children ? true : false;
@@ -89,89 +101,148 @@ const SideNavbar = () => {
     }
   };
 
-  const onMiniSidenavClick = () => {
-    actionMiniSidenav(dispatch, !miniSidenav);
-  };
+  const renderChildren = () => <>
+    <List component="nav" aria-labelledby="nested-lsit-subheader">
+      <BPopOver trigger={
+        <ListItemButton className={`bg-white dark:bg-gray-700 rounded-lg shadow mt-2 py-4`} id="v-tour-sidebar">
+          {
+            miniSidenav ?
+              <ListItemIcon>
+                <VImage src={`${process.env.REACT_APP_S3_ENDPOINT}/${process.env.REACT_APP_SITE_NAME}/favicon/logo.png?${miniSidenav}`} id="sidebar-favicon" className="h-10 -ml-0.5" />
+              </ListItemIcon>
+              :
+              <ListItemIcon className="flex flex-1 justify-center">
+                <VImage src={`${process.env.REACT_APP_S3_ENDPOINT}/${process.env.REACT_APP_SITE_NAME}/logo/logo.png?${miniSidenav}`} id="sidebar-logo" className="h-10" />
+              </ListItemIcon>
+          }
+          <Icon className="text-xl ml-auto" icon="fluent:chevron-up-down-16-filled" />
+        </ListItemButton>
+      }>
+        <div className="flex w-60 p-4 v-tour-sidebar">
+          <a href={process.env.REACT_APP_APP_ENDPOINT} className="no-underline w-full" rel="noreferrer">
+            <VButton variant="outlined" color="primary" className="px-4 py-1 w-full" onClick={() => localStorage.removeItem('jwt-ghost')}>
+              <Icon icon="mdi:application-variable-outline" className="flex-shrink-0" />&nbsp;{t('App')}
+            </VButton>
+          </a>
+          <a href={process.env.REACT_APP_STUDIO_ENDPOINT} className="no-underline ml-4 w-full" rel="noreferrer">
+            <VButton variant="outlined" color="primary" className="px-4 py-1 w-full">
+              <Icon icon="humbleicons:dashboard" className="flex-shrink-0" />&nbsp;{t('Studio')}
+            </VButton>
+          </a>
+        </div>
+      </BPopOver>
+    </List>
+    <List aria-labelledby="nested-lsit-subheader" className="flex-1 mt-2 overflow-y-auto overflow-x-hidden relative v-trans-scrollbar">
+      <div className="relative h-full">
+        {
+          routes.map(v =>
+            <div key={v.route} className={`v-tour-${v.route}`}>
+              <ListItemButton onClick={() => onClick(v.route)} className={`${location.pathname.includes(v.route) ? 'v-bg-side-active' : ""} rounded-lg mt-2 pl-5`}>
+                <ListItemIcon className="text-2xl color-secondary">{v.icon}</ListItemIcon>
+                <ListItemText><VText>{t(v.text)}</VText></ListItemText>
+                {v.children && <> {openRoutes.includes(v.route) ? <ExpandLess className="text-gray-400" /> : <ExpandMore className="text-gray-400" />}</>}
+              </ListItemButton>
+
+              {
+                v.children && <>
+                  <Collapse in={openRoutes.includes(v.route)} timeout="auto">
+                    <List component="div" disablePadding>
+                      {
+                        v.children.map(vc =>
+                          <ListItemButton
+                            onClick={() => onClick(v.route, vc.route)}
+                            key={`${v.route}-${vc.route}`}
+                            className={`pl-6 rounded-lg mt-2 ${location.pathname.includes(`/${v.route}/${vc.route}`) ? 'v-bg-side-active' : ""}`}
+                          >
+                            <ListItemIcon className="font-bold ml-0.5 color-secondary v-side-symbol"><VText>{t(vc.text)[0]}</VText></ListItemIcon>
+                            <ListItemText><VText>{t(vc.text)}</VText></ListItemText>
+                          </ListItemButton>
+                        )
+                      }
+                    </List>
+                  </Collapse>
+                </>
+              }
+              {v.divider && <Divider className="bg-gray-200 dark:bg-gray-500 mt-2" />}
+
+            </div>
+          )
+        }
+      </div>
+
+    </List>
+
+    <List component="nav" aria-labelledby="nested-lsit-subheader">
+      <Divider className="bg-gray-200 dark:bg-gray-500" />
+      <ListItemButton onClick={() => onClick("help")} className={`${location.pathname.includes("/help") ? "v-bg-side-active" : ""} rounded-lg mt-2 pl-5`}>
+        <ListItemIcon className="text-2xl color-secondary"><Icon icon="iconoir:chat-bubble-question" /></ListItemIcon>
+        <ListItemText><VText>{t('Help')}</VText></ListItemText>
+      </ListItemButton>
+
+      <div className="v-tour-settings">
+        <ListItemButton onClick={() => setSetting(!setting)} className={`${location.pathname.includes("/settings") ? "v-bg-side-active" : ""} rounded-lg mt-2 pl-5`}>
+          <ListItemIcon className="text-2xl color-secondary"><Icon icon="icon-park-outline:setting-two" /></ListItemIcon>
+          <ListItemText><VText>{t('Settings')}</VText></ListItemText>
+          {setting ? <ExpandLess className="text-gray-400" /> : <ExpandMore className="text-gray-400" />}
+        </ListItemButton>
+
+        <Collapse in={setting} timeout="auto">
+          <List component="div" disablePadding>
+            <ListItemButton onClick={() => navigate(`/settings/general`)} className={`pl-6 rounded-lg mt-2 ${location.pathname.includes(`/settings/general`) ? 'v-bg-side-active' : ""}`} >
+              <ListItemIcon className="font-bold ml-0.5 color-secondary v-side-symbol"><VText>{t('General')[0]}</VText></ListItemIcon>
+              <ListItemText><VText>{t('General')}</VText></ListItemText>
+            </ListItemButton>
+            <ListItemButton onClick={() => navigate(`/settings/theme`)} className={`pl-6 rounded-lg mt-2 ${location.pathname.includes(`/settings/theme`) ? 'v-bg-side-active' : ""}`} >
+              <ListItemIcon className="font-bold ml-0.5 color-secondary v-side-symbol"><VText>{t('Theming')[0]}</VText></ListItemIcon>
+              <ListItemText><VText>{t('Theming')}</VText></ListItemText>
+            </ListItemButton>
+            <ListItemButton onClick={() => navigate(`/settings/terms`)} className={`pl-6 rounded-lg mt-2 ${location.pathname.includes(`/settings/terms`) ? 'v-bg-side-active' : ""}`} >
+              <ListItemIcon className="font-bold ml-0.5 color-secondary v-side-symbol"><VText>{t('Terms')[0]}</VText></ListItemIcon>
+              <ListItemText><VText>{t('Terms')}</VText></ListItemText>
+            </ListItemButton>
+          </List>
+        </Collapse>
+      </div>
+
+      <Divider className="bg-gray-200 dark:bg-gray-500" />
+      {
+        !miniSidenav && <div className="px-2 my-4 flex items-center">
+          <VText className="text-gray-500 text-base">{t('Powered by')}</VText>
+          <VImage src={`${process.env.REACT_APP_S3_ASSET_ENDPOINT}/v2-assets/univo.png`} className="h-6 ml-2" />
+        </div>
+      }
+
+    </List>
+  </>;
 
   return <>
-    <Box className={`h-full p-4 fixed md:relative z-10 ${miniSidenav ? '' : 'shadow-md md:shadow-none'}`} sx={{ background: darkMode ? '#1A2035' : '#F8F8F8' }}>
-      <Box className=" h-full rounded-lg flex flex-col">
-        <Drawer variant="permanent" open={!miniSidenav}>
-          <List component="nav" aria-labelledby="nested-lsit-subheader">
-            <ListItemButton className={`${logoClass} rounded-xl border border-solid border-gray-200 rounded-xl mt-2 py-4`}>
-              <ListItemIcon><VImage src="https://edu-file-uploads.s3.amazonaws.com/dev/favicon/logo.png" className="w-8 h-8" /></ListItemIcon>
-              <ListItemText><VText>Univo</VText></ListItemText>
-              {!miniSidenav && <VSwitch
-                checked={!miniSidenav}
-                setChecked={onMiniSidenavClick}
-                color="info"
-                type="square"
-                className="mr-0 block md:hidden"
-              />}
-              <Icon className="hidden md:block">unfold_more</Icon>
-            </ListItemButton>
-          </List>
-          <List component="nav" aria-labelledby="nested-lsit-subheader" className="flex-1 overflow-y-auto overflow-x-hidden mt-2 v-light-scrollbar">
-            {
-              routes.map(v =>
-                <Fragment key={v.route}>
-                  <ListItemButton onClick={() => onClick(v.route)} className={`${location.pathname.includes(v.route) ? activeClassItem : ""} rounded-xl mt-2`}>
-                    <ListItemIcon><Icon sx={{ color: '#9CA0A0' }}>{v.icon}</Icon></ListItemIcon>
-                    <ListItemText><VText>{v.text}</VText></ListItemText>
-                    {v.children && <> {openRoutes.includes(v.route) ? <ExpandLess className="text-gray-400" /> : <ExpandMore className="text-gray-400" />}</>}
-                  </ListItemButton>
-
-                  {
-                    v.children && <>
-                      <Collapse in={openRoutes.includes(v.route)} timeout="auto">
-                        <List component="div" disablePadding>
-                          {
-                            v.children.map(vc =>
-                              <ListItemButton
-                                onClick={() => onClick(v.route, vc.route)}
-                                key={`${v.route}-${vc.route}`}
-                                className={`pl-5 rounded-xl mt-2 ${location.pathname === v.route + vc.route ? activeClassSubItem : ""}`}
-                              >
-                                <ListItemIcon className="font-bold ml-0.5"><VText>{vc.text[0]}</VText></ListItemIcon>
-                                <ListItemText><VText>{vc.text}</VText></ListItemText>
-                              </ListItemButton>
-                            )
-                          }
-                        </List>
-                      </Collapse>
-                    </>
-                  }
-                  {v.divider && <Divider className="mt-2" />}
-
-                </Fragment>
-              )
-            }
-          </List>
-
-          <List component="nav" aria-labelledby="nested-lsit-subheader">
-            <Divider />
-            <ListItemButton onClick={() => onClick("/help")} className={`${location.pathname.includes("/help") ? "bg-red-100" : ""} rounded-xl mt-2`}>
-              <ListItemIcon><Icon sx={{ color: '#9CA0A0' }}>help_outline</Icon></ListItemIcon>
-              <ListItemText><VText>Help</VText></ListItemText>
-            </ListItemButton>
-            <ListItemButton onClick={() => onClick("/settings")} className={`${location.pathname.includes("/settings") ? "bg-red-100" : ""} rounded-xl mt-2`}>
-              <ListItemIcon><Icon sx={{ color: '#9CA0A0' }}>settings</Icon></ListItemIcon>
-              <ListItemText><VText>Settings</VText></ListItemText>
-            </ListItemButton>
-            <Box className="px-2 my-4" sx={{ visibility: miniSidenav ? 'hidden' : 'visible' }}>
-              <VText className="text-gray-500 text-xl">Powered by</VText>
-              <Box className="flex items-center">
-                <VImage src="https://edu-file-uploads.s3.amazonaws.com/dev/favicon/logo.png" className="w-8 h-8" />
-                <VText className="ml-2 font-bold text-3xl">Univo</VText>
-              </Box>
-            </Box>
-          </List>
-
-        </Drawer>
-
-      </Box>
-    </Box>
+    {
+      mobile ?
+        <MuiDrawer
+          anchor="left"
+          open={!miniSidenav}
+          onClose={() => actionMiniSidenav(dispatch, true)}
+        >
+          <div className="m-4" style={{ width: drawerWidth }}>
+            {renderChildren()}
+          </div>
+        </MuiDrawer>
+        :
+        <div
+          className={`h-full p-4 md:relative z-10 ${miniSidenav ? '' : 'shadow-md md:shadow-none'} v-sidenav`}
+        >
+          <div className=" h-full rounded-lg flex flex-col">
+            <Drawer
+              anchor="left"
+              variant="permanent"
+              open={!miniSidenav}
+            >
+              {renderChildren()}
+            </Drawer>
+          </div>
+        </div>
+    }
   </>;
 };
 
-export default SideNavbar;
+export default SideNavbar;;

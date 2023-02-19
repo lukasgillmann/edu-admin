@@ -2,6 +2,53 @@
 @tailwind components;
 @tailwind utilities;
 
+$color-primary: #E25640;
+$color-secondary: #B3B6B6;
+$color-muted: #9CA0A0;
+$color-warning: #F0BC04;
+$color-body-dark: #272B30;
+$color-border-dark: #E8E6E6;
+
+p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.color-primary {
+  color: $color-primary;
+}
+
+.bg-primary {
+  background-color: $color-primary;
+}
+
+.bg-gray {
+  color: #B5B8B8;
+}
+
+.color-bg-body {
+  background-color: white;
+}
+
+.color-secondary {
+  color: $color-secondary;
+}
+
+.color-warning {
+  color: $color-warning;
+}
+
+.text-bg {
+  color: white;
+}
+
+.dot-bg {
+  background-image: radial-gradient(#E6E7E7 1px, transparent 0);
+  background-size: 24px 24px;
+  background-position: -12px -12px;
+}
+
+
 *,
 *::before,
 *::after {
@@ -13,13 +60,451 @@ html,
 body,
 #root {
   height: 100vh;
-  width: 100%;
+  width: 100vw;
   margin: 0;
   padding: 0;
 }
 
-.color-primary {
-  color: #43B8B1;
+.v-pdf {
+  * {
+    font-size: 8px !important;
+  }
+
+  .v-title {
+    font-size: 12px !important;
+  }
+
+  .v-table {
+    width: 100%;
+  }
+
+  .rdt_TableRow,
+  .rdt_TableHeadRow {
+    min-height: unset !important;
+  }
+
+  .rdt_TableCell,
+  .rdt_TableCol {
+    padding: 4px 2px !important;
+    min-width: unset;
+  }
+}
+
+.v-sidenav {
+  background-color: #F8F8F8;
+
+  .v-bg-side-active {
+    background: #FFEEED !important;
+  }
+}
+
+.v-text-active {
+  color: #00A4A2 !important;
+}
+
+.v-drop-menu {
+  & .MuiPaper-root {
+    overflow: visible;
+    filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))';
+    background-color: white;
+    margin-top: 10px;
+
+    &::before {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 0;
+      right: 14px;
+      width: 10px;
+      height: 10px;
+      background-color: #FFFFFF;
+      background: white;
+      color: white;
+      transform: translateY(-50%) rotate(45deg);
+      z-index: 100000;
+    }
+  }
+}
+
+.v-dropzone:hover {
+  border-color: #BEC3CB !important;
+}
+
+.v-table * {
+  font-size: 16px;
+
+  .rdt_TableCell {
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+}
+
+.v-slider {
+  .MuiSlider-rail {
+    background-color: #E4E7EC;
+    height: 8px;
+  }
+
+  .MuiSlider-track {
+    height: 8px;
+  }
+
+  .MuiSlider-thumb {
+    background: white;
+    box-shadow: 0px 4px 8px -2px rgba(16, 24, 40, 0.1), 0px 2px 4px -2px rgba(16, 24, 40, 0.06);
+  }
+}
+
+.v-select-xs {
+  .MuiSelect-select {
+    padding-top: 7px;
+    padding-bottom: 7px;
+  }
+}
+
+.v-android-switch {
+  .Mui-checked+.MuiSwitch-track {
+    background-color: #E25640 !important;
+  }
+}
+
+.v-h-fit-content {
+  height: fit-content;
+}
+
+.MuiButton-contained.MuiButton-containedInfo:hover {
+  background-color: #EFDEDD;
+}
+
+.fr-box {
+
+  .fr-toolbar,
+  .fr-wrapper,
+  .fr-second-toolbar {
+    border-radius: 0 !important;
+  }
+}
+
+.max-h-150 {
+  max-height: 600px !important;
+}
+
+.v-term {
+  .fr-toolbar {
+    border-top: 0;
+  }
+
+  .fr-second-toolbar {
+    border-bottom: 0;
+  }
+}
+
+.leading-0 {
+  line-height: 0;
+}
+
+.v-primary-text {
+  &>* {
+    color: black;
+  }
+
+  &:hover {
+    background-color: #FFEEED !important;
+
+    &>* {
+      color: $color-primary;
+    }
+  }
+}
+
+.v-report-item {
+  width: 1100px;
+  position: fixed;
+  top: 100%;
+  z-index: -1000;
+}
+
+.v-report-table {
+  .rdt_TableCell {
+    height: 60px;
+    overflow: clip;
+  }
+}
+
+.v-pdf-table {
+  .max-w-6xl {
+    .rdt_TableCell {
+      height: 60px;
+      overflow: clip;
+    }
+  }
+
+  .rdt_TableCell {
+    height: 52px;
+    overflow: clip;
+  }
+}
+
+.MuiTooltip-tooltipArrow.MuiTooltip-tooltipPlacementTop {
+  margin-bottom: 8px !important;
+}
+
+.v-formik-error {
+  .MuiOutlinedInput-root.MuiInputBase-root {
+    background-color: $color-warning;
+  }
+}
+
+///////////////////////////////////// DARK THEME //////////////////////////////////////// 
+.dark {
+
+  .v-formik-error {
+    .MuiOutlinedInput-root.MuiInputBase-root {
+      background-color: #C63100;
+    }
+  }
+  
+  .react-loading-skeleton {
+    background-color: #2F3236;
+
+    &::after {
+      background-image: linear-gradient(90deg, #2F3236, #3F4246, #2F3236)
+    }
+  }
+
+  .text-bg {
+    color: $color-body-dark;
+  }
+
+  .v-sidenav {
+    background: $color-body-dark;
+
+    & .v-bg-side-active {
+      background-color: #71757D !important;
+    }
+  }
+
+  .v-drop-menu {
+    & .MuiPaper-root {
+      border: 1px solid white;
+
+      &::before {
+        border-top: 1px solid white;
+        border-left: 1px solid white;
+      }
+    }
+  }
+
+  .color-secondary {
+    color: $color-muted;
+  }
+
+  .v-switch-square {
+    & .MuiSwitch-track {
+      background-color: #F4F4F4 !important;
+    }
+
+    & .MuiSwitch-thumb {
+      background-color: $color-body-dark  !important;
+    }
+  }
+
+  .v-table {
+
+    .rdt_Table,
+    .rdt_TableHeadRow,
+    .rdt_TableRow {
+      background-color: $color-body-dark;
+      border-color: #33383F;
+    }
+
+    .rdt_TableRow:hover {
+      background-color: #33383F !important;
+      outline-color: $color-body-dark
+    }
+
+    .rdt_TableCol_Sortable {
+      color: white;
+    }
+
+    .rdt_Table {
+      >div {
+        background-color: $color-body-dark;
+        color: $color-muted;
+      }
+
+      .rdt_ExpanderRow {
+        background-color: $color-body-dark;
+      }
+
+      .rdt_TableRow button {
+        color: $color-muted;
+      }
+    }
+  }
+
+  .v-tab-switch {
+    & .MuiTabs-root {
+      background-color: #33383F;
+    }
+
+    & .Mui-selected {
+      color: white !important;
+    }
+
+    & .MuiTabs-indicator {
+      background-color: $color-body-dark;
+      box-shadow: none;
+    }
+
+    & .MuiTab-root {
+      color: #43B8B1;
+    }
+  }
+
+  .color-bg-body {
+    background-color: $color-body-dark  !important;
+  }
+
+  .dot-bg {
+    background-image: radial-gradient(#6F767E 1px, transparent 0);
+  }
+
+  .fr-box {
+
+    .fr-toolbar,
+    .fr-wrapper,
+    .fr-second-toolbar {
+      border-color: #4B5563 !important;
+    }
+
+    .fr-second-toolbar {
+      background: #272B30;
+    }
+  }
+
+  .v-pagination .MuiButton-root.Mui-disabled {
+    color: #555;
+  }
+
+  .MuiCheckbox-root:not(.Mui-checked) .MuiSvgIcon-root {
+    color: #D1D5DB;
+  }
+
+  .MuiCheckbox-root.Mui-disabled .MuiSvgIcon-root {
+    color: #555;
+  }
+
+  .MuiCard-root,
+  .MuiPaper-root,
+  .v-main-modal,
+  .MuiPaper-root::before {
+    background: $color-body-dark  !important;
+    color: #F5F5F5;
+  }
+
+  .MuiOutlinedInput-notchedOutline {
+    border-color: $color-border-dark;
+  }
+
+  .MuiRadio-root,
+  .MuiSelect-icon,
+  .MuiAutocomplete-popupIndicator {
+    color: $color-muted;
+  }
+
+  .MuiInputBase-root,
+  .MuiInputLabel-root {
+    color: #F5F5F5;
+  }
+
+  .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+    border-color: $color-muted;
+  }
+
+  .MuiTextField-root .MuiIcon-root,
+  .MuiIconButton-edgeEnd {
+    color: $color-muted;
+  }
+
+  .MuiButton-contained.MuiButton-containedInfo:hover {
+    background-color: #DEC2C2;
+  }
+
+  .MuiButton-outlinedSecondary {
+    border-color: $color-border-dark;
+  }
+
+  .v-primary-text {
+    &>* {
+      color: white;
+    }
+
+    &:hover {
+      &>* {
+        color: $color-primary;
+      }
+    }
+  }
+
+  .v-mul-select {
+    span {
+      color: white;
+    }
+
+    .MuiChip-filled {
+      background-color: #5A5A5A;
+    }
+  }
+
+  .MuiDialogContentText-root,
+  .MuiSlider-markLabel,
+  .MuiLoadingButton-root.Mui-disabled {
+    color: $color-muted;
+  }
+
+  .MuiOutlinedInput-input.Mui-disabled {
+    -webkit-text-fill-color: $color-muted;
+  }
+
+  .MuiLoadingButton-loadingIndicator {
+    color: white;
+  }
+
+  .MuiCalendarPicker-root {
+    .MuiTypography-caption {
+      color: $color-muted;
+    }
+
+    .PrivatePickersSlideTransition-root {
+      .MuiButtonBase-root:not(.Mui-selected) {
+        background-color: $color-muted;
+      }
+
+      .MuiButtonBase-root:hover {
+        background-color: $color-body-dark;
+      }
+    }
+  }
+
+  .MuiAvatar-root {
+    background-color: $color-muted;
+  }
+}
+
+.v-trans-scrollbar {
+  &::-webkit-scrollbar {
+    width: 0px;
+  }
+
+  &::-webkit-scrollbar-track {
+    opacity: 0.5;
+    border-radius: 20px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    width: 0;
+  }
 }
 
 .v-light-scrollbar {
@@ -30,33 +515,19 @@ body,
   }
 
   &::-webkit-scrollbar-track {
-    opacity: 0;
+    opacity: 0.5;
+    border-radius: 20px;
   }
 
   &::-webkit-scrollbar-thumb {
-    opacity: 0;
-  }
-
-  &::-webkit-scrollbar-thumb:hover {
-    background-color: rgba(150, 150, 150, 0.3);
+    background-color: transparent;
+    border-radius: 20px;
   }
 
   &:hover {
-    &::-webkit-scrollbar-track {
-      opacity: 1;
-      background: rgba(150, 150, 150, 0.2);
-      opacity: 0.2;
-      border-radius: 20px;
-    }
-
     &::-webkit-scrollbar-thumb {
       opacity: 1;
       background-color: rgba(150, 150, 150, 0.2);
-      border-radius: 20px;
-    }
-
-    &::-webkit-scrollbar-thumb:hover {
-      background-color: rgba(150, 150, 150, 0.3);
     }
   }
 }
@@ -68,6 +539,16 @@ body,
   -webkit-line-clamp: 1;
   line-clamp: 1;
   -webkit-box-orient: vertical;
+  overflow-wrap: break-word;
+}
+
+.text-limit-2 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 .v-input-noborder {
@@ -78,8 +559,9 @@ body,
 
 .dark-theme {
   & .fr-wrapper {
-    background-color: #202940 !important;
+    background-color: $color-body-dark  !important;
   }
+
   & .fr-element.fr-view {
     color: white !important;
   }
@@ -90,24 +572,26 @@ body,
     margin: 5px 0;
     line-height: 16px;
   }
+
   & .fr-second-toolbar .fr-counter {
     float: left;
   }
-  & .fr-toolbar, 
+
+  & .fr-toolbar,
   .fr-second-toolbar {
     border-radius: 0 !important;
     border: none !important;
   }
+
   & .fr-wrapper {
     border-radius: 0 0 8px 0 !important;
     border: none !important;
   }
+
   & .fr-second-toolbar {
     display: none;
   }
-  & .fr-box.fr-basic.fr-top {
-    /* box-shadow: 0 0 20px 0 #CCCCCC; */
-  }
+
   & .fr-box.fr-basic .fr-element {
     padding-top: 0 !important;
     padding-bottom: 0 !important;
@@ -118,6 +602,7 @@ body,
 }
 
 .v-spin-hide {
+
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -125,7 +610,8 @@ body,
   }
 
   &[type=number] {
-    -moz-appearance:textfield; /* Firefox */
+    -moz-appearance: textfield;
+    /* Firefox */
   }
 }
 
@@ -133,4 +619,98 @@ body,
   & .MuiSelect-select {
     padding: 5px 10px;
   }
+}
+
+.v-tab-switch {
+  & .MuiTabs-root {
+    position: relative;
+    background-color: #E6E7E7;
+    border-radius: 2px;
+    padding: 3px;
+    min-height: 32px;
+  }
+
+  & .Mui-selected {
+    color: black !important;
+  }
+
+  & .MuiTabs-fixed {
+    overflow: unset !important;
+    overflow-x: unset !important;
+  }
+
+  & .MuiTabs-flexContainer {
+    height: 100%;
+    position: relative;
+    z-index: 10;
+  }
+
+  & .MuiTabs-indicator {
+    height: 100%;
+    border-radius: 2px;
+    background-color: #FFFFFF;
+    box-shadow: 2px 2px 5px #CCCCCC;
+    transition: all 500ms ease;
+  }
+
+  & .MuiTab-root {
+    min-width: unset !important;
+    min-height: unset !important;
+    font-size: 16px;
+    padding: 4px;
+    border-radius: 2px;
+  }
+}
+
+.v-user-detail-group {
+  & .MuiAvatarGroup-avatar {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+  }
+
+  & .MuiAvatar-colorDefault {
+    background-color: #FFBE40;
+  }
+
+  @for $i from 1 through 10 {
+    & .MuiAvatarGroup-avatar:nth-child(#{$i}) {
+      z-index: #{10 - $i};
+    }
+  }
+}
+
+.v-carousel {
+  @for $i from 1 through 10 {
+    & .react-multi-carousel-item:nth-child(#{$i}) {
+      z-index: #{10 - $i};
+    }
+  }
+
+  & .react-multi-carousel-dot-list {
+    position: relative;
+    margin-top: 50px;
+
+    & button {
+      width: 42px;
+      border-radius: 3px;
+      border: 0;
+      height: 6px;
+      background-color: #556175;
+    }
+
+    & .react-multi-carousel-dot--active button {
+      background-color: #E94F33;
+    }
+  }
+}
+
+.v-focus-none:focus-visible {
+  outline: none !important;
+}
+
+.v-filter-gray {
+  filter: gray;
+  -webkit-filter: grayscale(1);
+  filter: grayscale(1);
 }

@@ -1,40 +1,68 @@
 import React from "react";
-import { Grid, Box } from '@mui/material';
-import BAnaCard from '../../components/BAnaCard';
-import BTotalContent from '../../components/BTotalContent';
-import BRecentActivity from '../../components/BRecentActivity';
-import GDashboard from '../../graphs/GDashboard';
+import { Icon } from '@iconify/react';
+import { useTranslation } from 'react-i18next';
 
-const recentHistory = [
-  { key: 0, icon: 'book', name: 'Jonathan Doe Imannuel', target: 'introduction to Figma part 1', type: 'course_complete', date: '1656624071913' },
-  { key: 1, icon: 'public', name: 'Jonathan Doe Imannuel', target: 'introduction to Figma part 1', type: 'module_complete', date: '1656624071913' },
-  { key: 2, icon: 'book', name: 'Jonathan Doe Imannuel', target: 'introduction to Figma part 1', type: 'course_complete', date: '1656624071913' },
-  { key: 3, icon: 'book', name: 'Jonathan Doe Imannuel', target: 'introduction to Figma part 1', type: 'course_complete', date: '1656624071913' },
-  { key: 4, icon: 'book', name: 'Jonathan Doe Imannuel', target: 'introduction to Figma part 1', type: 'course_complete', date: '1656624071913' },
-  { key: 5, icon: 'book', name: 'Jonathan Doe Imannuel', target: 'introduction to Figma part 1', type: 'course_complete', date: '1656624071913' },
-  { key: 6, icon: 'book', name: 'Jonathan Doe Imannuel', target: 'introduction to Figma part 1', type: 'course_complete', date: '1656624071913' },
-];
+import BAnaCard from '../../components/BAnaCard';
+import { VText } from "../../form";
+import DashboardHistory from "./dashboard.history";
+import { useAsterController } from "../../context";
+import { formatTimeSpent, getUserName } from "../../utils/string";
+import DashboardTotal from "./dashboard.total";
+import DashboardInsight from "./dashboard.insight";
+import { useMemo } from "react";
 
 const Dashboard = () => {
 
-  return <Box p={4}>
-    <Grid container spacing={4}>
-      <Grid item md={4} sm={6} xs={12}>
-        <BAnaCard icon="person_add_alt" label="Total User" value="32 Learner" />
-        <BAnaCard icon="timer" label="Avg. Learning Time" value="42 Minutes" className="mt-6" />
-        <BAnaCard icon="person_add_alt" label="Avg. Access Time" value="56 Minutes" className="mt-6" />
-      </Grid>
-      <Grid item md={4} sm={6} xs={12}>
-        <BTotalContent />
-      </Grid>
-      <Grid item md={4} sm={12} xs={12}>
-        <BRecentActivity data={recentHistory} />
-      </Grid>
-      <Grid item md={12} sm={12} xs={12}>
-        <GDashboard />
-      </Grid>
-    </Grid>
-  </Box>;
+  const { t } = useTranslation('common');
+
+  const [controller] = useAsterController();
+  const { dashboardInfo, user, themes } = controller;
+
+  const statistics = dashboardInfo.numbers || {};
+  const colorMain1 = useMemo(() => themes.find(v => v.name === 'color_main1')?.value || '#F76060', [themes]);
+
+  return <div className="p-4">
+    <div className="md:hidden">
+      <VText className="text-2xl font-bold text-limit-1 leading-6">
+        {t('Welcome')}, {getUserName(user)}&nbsp;<Icon icon="noto:waving-hand" />
+      </VText>
+      <VText color="secondary" className="text-sm text-limit-1 mb-9" div>{t("Here's what happened with your learning system")}</VText>
+    </div>
+    <div className="flex flex-col xl:flex-row flex-wrap w-full">
+      <div className="flex flex-wrap v-tour-glance w-full" style={{ flex: 2 }}>
+        <div className="flex-1 p-2" style={{ minWidth: 280 }}>
+          <BAnaCard label={t("Total User")} value={statistics.total_user || '-'} className="">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
+              <path d="M15.0003 17.4571V27.2817H5.17578C5.17578 24.676 6.21087 22.1771 8.05333 20.3347C9.89579 18.4922 12.3947 17.4571 15.0003 17.4571ZM22.3688 26.6676L18.7595 28.565L19.4484 24.5468L16.5293 21.7001L20.5647 21.1131L22.3688 17.4571L24.174 21.1131L28.2083 21.7001L25.2891 24.5468L25.9768 28.565L22.3688 26.6676ZM15.0003 16.229C10.9293 16.229 7.63192 12.9317 7.63192 8.86061C7.63192 4.78956 10.9293 1.49219 15.0003 1.49219C19.0714 1.49219 22.3688 4.78956 22.3688 8.86061C22.3688 12.9317 19.0714 16.229 15.0003 16.229Z" fill={colorMain1} />
+              <path d="M15.0003 27.2816V17.457C12.3947 17.457 9.89579 18.4921 8.05333 20.3346C6.21087 22.177 5.17578 24.676 5.17578 27.2816H15.0003Z" fill="#F0BC04" />
+            </svg>
+          </BAnaCard>
+          <BAnaCard label={t("Avg. Learning Time")} value={formatTimeSpent(statistics.total_spent_avg)} className="mt-6">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
+              <path d="M21.8987 7.59324L23.6831 5.80885L25.4195 7.54535L23.6352 9.32973C25.3984 11.5368 26.2496 14.3352 26.014 17.1502C25.7784 19.9653 24.4739 22.5833 22.3684 24.4666C20.2629 26.3499 17.5161 27.3555 14.6923 27.2768C11.8685 27.1982 9.18201 26.0414 7.18451 24.0439C5.18701 22.0464 4.03016 19.3599 3.95155 16.5361C3.87294 13.7123 4.87854 10.9655 6.76182 8.86001C8.6451 6.75447 11.2631 5.44995 14.0782 5.21437C16.8932 4.97878 19.6916 5.83001 21.8987 7.59324ZM13.7713 10.0887V17.4571H16.2274V10.0887H13.7713ZM10.0871 1.49219H19.9117V3.94833H10.0871V1.49219Z" fill={colorMain1} />
+              <path d="M19.9115 1.49219H10.0869V3.94833H19.9115V1.49219Z" fill="#F0BC04" />
+            </svg>
+          </BAnaCard>
+          <BAnaCard label={t("Ave. number of connexion")} value={statistics.login_count_avg || '-'} className="mt-6">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
+              <path d="M14.9995 2.7207C21.7821 2.7207 27.2802 8.21877 27.2802 15.0014C27.2802 21.784 21.7821 27.2821 14.9995 27.2821C8.21682 27.2821 2.71875 21.784 2.71875 15.0014C2.71875 8.21877 8.21682 2.7207 14.9995 2.7207ZM14.9995 5.17684C12.3938 5.17684 9.8949 6.21193 8.05244 8.05439C6.20997 9.89685 5.17489 12.3958 5.17489 15.0014C5.17489 17.607 6.20997 20.106 8.05244 21.9484C9.8949 23.7909 12.3938 24.826 14.9995 24.826C17.6051 24.826 20.104 23.7909 21.9465 21.9484C23.7889 20.106 24.824 17.607 24.824 15.0014C24.824 12.3958 23.7889 9.89685 21.9465 8.05439C20.104 6.21193 17.6051 5.17684 14.9995 5.17684ZM14.9995 6.40491C16.2496 6.40491 17.4372 6.6714 18.5093 7.15158L16.5898 9.06983C15.2838 8.71901 13.8986 8.80913 12.649 9.32618C11.3995 9.84324 10.3556 10.7583 9.6794 11.9294C9.00317 13.1004 8.73242 14.4619 8.90919 15.8026C9.08596 17.1433 9.70035 18.3881 10.657 19.3439L8.9205 21.0804L8.72892 20.8826C7.5817 19.6596 6.81722 18.1277 6.52963 16.4757C6.24205 14.8237 6.44391 13.1236 7.11037 11.5848C7.77683 10.0461 8.87878 8.73582 10.2805 7.81545C11.6823 6.89509 13.3226 6.40478 14.9995 6.40491ZM22.8493 11.4928C23.3282 12.5637 23.5959 13.7525 23.5959 15.0014C23.5972 16.1305 23.3755 17.2488 22.9435 18.292C22.5114 19.3352 21.8776 20.2828 21.0784 21.0804L19.3419 19.3439C20.1052 18.5821 20.654 17.6325 20.933 16.5908C21.212 15.5492 21.2113 14.4524 20.931 13.4111L22.8493 11.4928ZM20.2089 8.05421L21.9466 9.7907L17.3733 14.3665C17.4702 14.7304 17.4822 15.1118 17.4083 15.4811C17.3345 15.8504 17.1768 16.1978 16.9474 16.4964C16.718 16.7951 16.423 17.0371 16.0853 17.2038C15.7476 17.3704 15.3761 17.4572 14.9995 17.4575C14.6503 17.4569 14.3052 17.3818 13.9873 17.2373C13.6694 17.0927 13.386 16.8821 13.156 16.6193C12.926 16.3566 12.7546 16.0478 12.6534 15.7137C12.5521 15.3795 12.5233 15.0275 12.5688 14.6813C12.6143 14.3351 12.7331 14.0025 12.9173 13.7059C13.1015 13.4092 13.3468 13.1552 13.6369 12.9609C13.927 12.7665 14.2553 12.6362 14.5997 12.5788C14.9441 12.5213 15.2969 12.5379 15.6344 12.6275L20.2089 8.05421Z" fill={colorMain1} />
+              <path d="M18.5103 7.15096C17.4382 6.67079 16.2507 6.4043 15.0005 6.4043C13.3236 6.40416 11.6833 6.89447 10.2816 7.81484C8.87984 8.73521 7.77789 10.0454 7.11143 11.5842C6.44497 13.123 6.2431 14.823 6.53069 16.4751C6.81827 18.1271 7.58275 19.659 8.72998 20.882L8.92156 21.0797L10.6581 19.3432C9.7014 18.3875 9.08701 17.1427 8.91025 15.802C8.73348 14.4613 9.00423 13.0998 9.68046 11.9287C10.3567 10.7577 11.4006 9.84262 12.6501 9.32557C13.8996 8.80851 15.2849 8.7184 16.5909 9.06921L18.5103 7.15096Z" fill="#F0BC04" />
+              <path d="M23.5949 15.0008C23.5949 13.7518 23.3271 12.5631 22.8482 11.4922L20.9299 13.4104C21.2103 14.4517 21.2109 15.5485 20.9319 16.5902C20.6529 17.6318 20.1041 18.5815 19.3408 19.3432L21.0773 21.0797C21.8765 20.2821 22.5103 19.3345 22.9424 18.2913C23.3744 17.2482 23.5961 16.1299 23.5949 15.0008Z" fill="#F0BC04" />
+            </svg>
+          </BAnaCard>
+        </div>
+        <div className="flex-1 p-2" style={{ minWidth: 280 }}>
+          <DashboardTotal />
+        </div>
+      </div>
+      <div className="flex-1 p-2 v-tour-recent" style={{ minWidth: 280 }}>
+        <DashboardHistory />
+      </div>
+    </div>
+    <div className="w-full mt-4 v-tour-graph">
+      <DashboardInsight />
+    </div>
+  </div>;
 };
 
 export default Dashboard;

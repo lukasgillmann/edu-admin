@@ -1,4 +1,4 @@
-import { Card, Box } from "@mui/material";
+import { Card } from "@mui/material";
 import React from "react";
 import Header from "./Header";
 
@@ -7,13 +7,13 @@ const MainLayout = (props) => {
   const { children } = props;
 
   return <>
-    <Card className="shadow rounded-xl h-full flex flex-col">
+    <Card className="shadow rounded-none md:rounded-xl h-full flex flex-col">
       <Header />
-      <Box className="flex-1 overflow-auto v-light-scrollbar">
-        <Box className="relative h-full">
+      <div className="flex-1 overflow-y-auto overflow-x-hidden v-light-scrollbar">
+        <div className="relative h-full">
           {children}
-        </Box>
-      </Box>
+        </div>
+      </div>
     </Card>
   </>;
 };

@@ -1,10 +1,11 @@
 import { Button } from "@mui/material";
 import React, { useState } from "react";
 import { SketchPicker } from "react-color";
+import { VText } from ".";
 
 const VColorPicker = (props) => {
 
-  const { color, setColor, classes } = props;
+  const { color, setColor, children, ...rest } = props;
 
   const [show, setShow] = useState(false);
 
@@ -12,16 +13,18 @@ const VColorPicker = (props) => {
     setColor(val.hex);
   };
 
-  return <>
+  return <div className="w-min">
 
     <Button
-      className={classes}
       variant="contained"
       onClick={() => setShow(true)}
       style={{ backgroundColor: color }}
+      {...rest}
     >
-      {color}
+      {children}
     </Button>
+
+    <VText color="secondary" div className="text-center mt-2 text-xs">{color}</VText>
 
     {
       show &&
@@ -34,11 +37,10 @@ const VColorPicker = (props) => {
         />
       </div>
     }
-  </>;
+  </div>;
 };
 
 VColorPicker.defaultProps = {
-  classes: '',
   color: '#DBCD19',
   setColor: () => { }
 };

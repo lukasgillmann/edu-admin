@@ -1,9 +1,12 @@
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import React from "react";
+import { useTranslation } from 'react-i18next';
 
 const VSelect = (props) => {
 
-  const { option, setOption, label, items, variant, ...rest } = props;
+  const { t } = useTranslation('common');
+
+  const { option, setOption, label, items, variant, inputClassName = '', ...rest } = props;
 
   return <>
     {
@@ -16,9 +19,10 @@ const VSelect = (props) => {
           value={option}
           label={label}
           onChange={e => setOption(e.target.value)}
+          inputProps={{ className: inputClassName }}
         >
           {
-            items.map(v => <MenuItem key={v.value} value={v.value}>{v.label}</MenuItem>)
+            items.map(v => <MenuItem key={v.value} value={v.value}>{t(v.label)}</MenuItem>)
           }
         </Select>
       </FormControl>
